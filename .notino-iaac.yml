@@ -1,0 +1,24 @@
+﻿---
+category: standard
+team: "Purchase"
+---
+kind: login
+spec:
+  name: usr_material-purchase-api
+  secret_name: material-purchase-api
+  secret_keys:
+    - MaterialPurchaseDb__Password
+  instance: purplesql
+  service: material-purchase-api
+---
+kind: database
+spec:
+  name: MaterialPurchase
+  path: database\MaterialPurchase.Database.sqlproj
+  instance: purplesql
+  service: material-purchase-api
+  owner: "Purchase"
+  publishprofile:
+    development: Development.dbpublish.xml
+    staging: Staging.dbpublish.xml
+    production: Production.dbpublish.xml

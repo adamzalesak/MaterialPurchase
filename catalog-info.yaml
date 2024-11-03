@@ -1,0 +1,8 @@
+﻿apiVersion: backstage.io/v1alpha1
+kind: Location
+metadata:
+  name: material-purchase-api
+spec:
+  type: url
+  targets:
+    - ./catalog/material-purchase-api.yaml

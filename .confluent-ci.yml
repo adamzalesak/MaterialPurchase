@@ -1,0 +1,4 @@
+include:
+  - project: "ci-cd/iac/confluent-terraform"
+    ref: "5"
+    file: ".iac.yml"

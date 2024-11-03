@@ -1,0 +1,34 @@
+﻿kind: DataBridge
+spec:    
+- source:
+    InstanceName: SERVERSQL
+    DatabaseName: ELIS
+    SchemaName: dataBridge
+    ObjectName: VW_PhysicalWarehouse_MaterialPurchase
+  target:
+    InstanceName: PURPLESQL
+    DatabaseName: MaterialPurchase
+    SchemaName: dbo
+    ObjectName: PhysicalWarehouses
+  SyncFirstTime: '2024-10-10 06:00:00'
+  SyncInterval: 12h
+  Disabled: false
+  SyncType: ChangeTracking
+  SyncMethod: Pull
+  DefinitionOwner: Purchase
+- source:
+    InstanceName: SERVERSQL
+    DatabaseName: ELIS
+    SchemaName: dataBridge
+    ObjectName: VW_Sklady_MaterialPurchase
+  target:
+    InstanceName: PURPLESQL
+    DatabaseName: MaterialPurchase
+    SchemaName: dbo
+    ObjectName: AccountingWarehouses
+  SyncFirstTime: '2024-10-10 06:00:00'
+  SyncInterval: 12h
+  Disabled: false
+  SyncType: ChangeTracking
+  SyncMethod: Pull
+  DefinitionOwner: Purchase

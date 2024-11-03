@@ -1,0 +1,36 @@
+﻿using MaterialPurchase.OrderCartsContracts.DomainEvents;
+using MaterialPurchase.OrderCartsContracts.Queries;
+using MaterialPurchase.OrderCartsContracts.Queries.Models;
+using MaterialPurchase.Orders.Domain.Order;
+using MaterialPurchase.Orders.Infrastructure.Persistence;
+using Wolverine;
+
+namespace MaterialPurchase.Orders.Application.DomainEventHandlers;
+
+public static class CreateOrderOnOrderCartFinishedDomainEventHandler
+{
+    public static async Task Handle(OrderCartFinishedDomainEvent @event, IUnitOfWork unitOfWork,
+        IOrderReadRepository readRepository, IMessageBus bus, CancellationToken cancellationToken)
+    {
+        Console.WriteLine($"Order cart with id: {@event.OrderCartId} finished -> creating order.");
+
+        var alreadyCreated = await readRepository.ExistsByOrderCartId(@event.OrderCartId, cancellationToken);
+        if (alreadyCreated)
+        {
+            return;
+        }
+
+        // get data from another module by invoking a query
+        var orderCartItemsQuery = new GetOrderCartItemsQuery(@event.OrderCartId);
+        var orderCartItems = await bus.InvokeAsync<ICollection<OrderCartItemQueryModel>>(orderCartItemsQuery, cancellationToken) ??
+                             throw new InvalidOperationException("Order cart items not found.");
+
+        _ = orderCartItems;
+
+        var order = Order.Create(orderCartId: @event.OrderCartId);
+
+        unitOfWork.Orders.Add(order);
+
+        await unitOfWork.SaveChangesAsync(cancellationToken);
+    }
+}

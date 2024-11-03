@@ -1,0 +1,16 @@
+﻿apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: material-purchase-api
+spec:
+  rules:
+    - host: "material-purchase-api.stg.notino.app"
+      http:
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: material-purchase-api
+                port:
+                  name: http

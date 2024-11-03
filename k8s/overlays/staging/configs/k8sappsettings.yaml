@@ -1,0 +1,14 @@
+﻿Logging:
+  LogLevel:
+    Default: Warning
+
+MaterialPurchaseDb:
+  ConnectionString: Data source=DCVMSQLTST01.parfums.local;Initial catalog=MaterialPurchase;User Id=usr_material-purchase-api;Connection Timeout=30;TrustServerCertificate=True;Application Name=material-purchase-api
+
+AzureAdSettings:
+    ClientId: d126b126-e0ec-4ecd-bece-863194ddcb84
+    Audience: https://material-purchase-api.stg.notino.app
+
+SwaggerAuthOptions:
+    ClientId: 20ecfefe-2054-4d3c-b293-16f65bdef2a5
+    Scope: https://material-purchase-api.stg.notino.app/api.read.write

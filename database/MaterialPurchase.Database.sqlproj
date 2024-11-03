@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build">
+  <Sdk Name="Microsoft.Build.Sql" Version="0.1.14-preview" />
+  <PropertyGroup>
+    <Name>MaterialPurchase.Database</Name>
+    <ProjectGuid>{9a01b967-42c2-455e-92a4-64edc0f79d15}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql150DatabaseSchemaProvider</DSP>
+    <ModelCollation>1029, CI</ModelCollation>
+    <TargetDatabaseSet>True</TargetDatabaseSet>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <ItemGroup>
+    <PreDeploy Include="Scripts/Script.PreDeployment.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="Scripts/Script.PostDeployment.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Remove="ContinuousDeployment/**" />
+    <Build Include="orderCarts\Tables\OrderCartHeaders.sql" />
+    <Build Include="orders\Tables\OrderHeaders.sql" />
+    <Build Include="Security\Schemas\ContinuousDeployment.sql" />
+    <Build Include="Security\Schemas\orders.sql" />
+    <Build Include="Security\Schemas\orderCarts.sql" />
+    <Build Include="Security\Schemas\wolverine.sql" />
+    <Build Include="wolverine\Procedures\uspMarkIncomingOwnership.sql" />
+    <Build Include="wolverine\Tables\wolverine_nodes.sql" />
+    <Build Include="wolverine\Tables\wolverine_node_records.sql" />
+    <Build Include="wolverine\Tables\wolverine_node_assignments.sql" />
+    <Build Include="wolverine\Tables\wolverine_outgoing_envelopes.sql" />
+    <Build Include="wolverine\Tables\wolverine_incoming_envelopes.sql" />
+    <Build Include="wolverine\Tables\wolverine_dead_letters.sql" />
+    <Build Include="wolverine\Tables\wolverine_control_queue.sql" />
+    <Build Include="wolverine\Types\EnvelopeIdList.sql" />
+    <Build Include="wolverine\Procedures\uspDeleteIncomingEnvelopes.sql" />
+    <Build Include="wolverine\Procedures\uspDeleteOutgoingEnvelopes.sql" />
+    <Build Include="wolverine\Procedures\uspDiscardAndReassignOutgoing.sql" />
+    <Build Include="wolverine\Procedures\uspMarkOutgoingOwnership.sql" />
+    <Build Include="dbo\Tables\Users.sql" />
+    <Build Include="dbo\Tables\AccountingWarehouses.sql" />
+    <Build Include="dbo\Tables\PhysicalWarehouses.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Scripts\" />
+    <Folder Include="Security\" />
+    <Folder Include="orderCarts" />
+    <Folder Include="Security\Schemas" />
+    <Folder Include="PublishProfiles\" />
+    <Folder Include="orderCarts\Tables\" />
+    <Folder Include="orders\" />
+    <Folder Include="orders\Tables\" />
+    <Folder Include="wolverine\Procedures\" />
+    <Folder Include="wolverine\Tables\" />
+    <Folder Include="wolverine\Types\" />
+    <Folder Include="wolverine\" />
+    <Folder Include="dbo" />
+    <Folder Include="dbo\Tables" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="PublishProfiles\Development.dbpublish.xml" />
+    <None Include="PublishProfiles\Production.dbpublish.xml" />
+    <None Include="PublishProfiles\Staging.dbpublish.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <SqlCmdVariable Include="environment">
+      <DefaultValue>Local</DefaultValue>
+      <Value>$(SqlCmdVar__1)</Value>
+    </SqlCmdVariable>
+  </ItemGroup>
+</Project>
+<!--this has to be compiled with an extra argument -->
+<!--dotnet build /p:NetCoreBuild=true-->
+<!---->
