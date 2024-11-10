@@ -14,9 +14,4 @@
         <ProjectReference Include="..\MaterialPurchase.OrderCartsContracts\MaterialPurchase.OrderCartsContracts.csproj" />
         <ProjectReference Include="..\MaterialPurchase.OrdersContracts\MaterialPurchase.OrdersContracts.csproj"/>
     </ItemGroup>
-
-    <ItemGroup>
-        <Folder Include="Application\IntegrationEventHandlers\"/>
-        <Folder Include="Application\Services\"/>
-    </ItemGroup>
 </Project>

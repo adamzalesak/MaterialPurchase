@@ -1,11 +1,10 @@
 ﻿using MaterialPurchase.Common.Application.CommandsAndQueries;
-using MaterialPurchase.OrderCarts.Infrastructure.Persistence;
 
 namespace MaterialPurchase.OrderCarts.Application.Queries.GetOrderCart;
 
 public class GetOrderCartQueryHandler : IQueryHandler<GetOrderCartQuery, GetOrderCartResponse?>
 {
-    private readonly IOrderCartReadRepository _readRepository;
+    readonly IOrderCartReadRepository _readRepository;
 
     public GetOrderCartQueryHandler(IOrderCartReadRepository readRepository)
     {

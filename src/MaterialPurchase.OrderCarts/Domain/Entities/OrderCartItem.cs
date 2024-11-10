@@ -2,16 +2,26 @@
 
 namespace MaterialPurchase.OrderCarts.Domain.Entities;
 
-public class OrderCartItem(
-    int id,
-    int orderCartId,
-    int productId,
-    int quantity,
-    decimal price
-) : Entity<int>(id)
+public class OrderCartItem : Entity<int>
 {
-    public int OrderCartId { get; set; } = orderCartId;
-    public int ProductId { get; set; } = productId;
-    public int Quantity { get; set; } = quantity;
-    public decimal Price { get; set; } = price;
+    public Guid OrderCartId { get; private set; }
+    public int ProductId { get; private set; }
+    public Guid OfferId { get; private set; }
+    public int SupplierId { get; private set; }
+    public int Quantity { get; private set; }
+    public decimal Price { get; private set; }
+
+    public OrderCartItem(int productId, Guid offerId, int supplierId, int quantity, decimal price)
+    {
+        ProductId = productId;
+        OfferId = offerId;
+        SupplierId = supplierId;
+        Quantity = quantity;
+        Price = price;
+    }
+
+    public void AddQuantity(int quantity)
+    {
+        Quantity += quantity;
+    }
 }

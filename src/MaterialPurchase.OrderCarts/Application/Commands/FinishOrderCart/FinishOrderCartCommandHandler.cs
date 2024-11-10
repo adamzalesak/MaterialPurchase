@@ -4,7 +4,7 @@ namespace MaterialPurchase.OrderCarts.Application.Commands.FinishOrderCart;
 
 public class FinishOrderCartCommandHandler : ICommandHandler<FinishOrderCartCommand>
 {
-    private readonly IUnitOfWork _unitOfWork;
+    readonly IUnitOfWork _unitOfWork;
 
     public FinishOrderCartCommandHandler(IUnitOfWork unitOfWork)
     {

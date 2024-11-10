@@ -18,7 +18,11 @@
   </ItemGroup>
   <ItemGroup>
     <Build Remove="ContinuousDeployment/**" />
+    <Build Include="dbo\Tables\Products.sql" />
+    <Build Include="orderCarts\Tables\DomainEvents.sql" />
     <Build Include="orderCarts\Tables\OrderCartHeaders.sql" />
+    <Build Include="orderCarts\Tables\OrderCartItems.sql" />
+    <Build Include="orders\Tables\DomainEvents.sql" />
     <Build Include="orders\Tables\OrderHeaders.sql" />
     <Build Include="Security\Schemas\ContinuousDeployment.sql" />
     <Build Include="Security\Schemas\orders.sql" />
@@ -47,15 +51,33 @@
     <Folder Include="orderCarts" />
     <Folder Include="Security\Schemas" />
     <Folder Include="PublishProfiles\" />
-    <Folder Include="orderCarts\Tables\" />
     <Folder Include="orders\" />
-    <Folder Include="orders\Tables\" />
     <Folder Include="wolverine\Procedures\" />
     <Folder Include="wolverine\Tables\" />
     <Folder Include="wolverine\Types\" />
     <Folder Include="wolverine\" />
     <Folder Include="dbo" />
-    <Folder Include="dbo\Tables" />
+    <Folder Include="orderCarts\Tables\OrderCartHeaders.sql" />
+    <Folder Include="orders\Tables\OrderHeaders.sql" />
+    <Folder Include="Security\Schemas\ContinuousDeployment.sql" />
+    <Folder Include="Security\Schemas\orders.sql" />
+    <Folder Include="Security\Schemas\orderCarts.sql" />
+    <Folder Include="Security\Schemas\wolverine.sql" />
+    <Folder Include="wolverine\Procedures\uspMarkIncomingOwnership.sql" />
+    <Folder Include="wolverine\Tables\wolverine_nodes.sql" />
+    <Folder Include="wolverine\Tables\wolverine_node_records.sql" />
+    <Folder Include="wolverine\Tables\wolverine_node_assignments.sql" />
+    <Folder Include="wolverine\Tables\wolverine_outgoing_envelopes.sql" />
+    <Folder Include="wolverine\Tables\wolverine_incoming_envelopes.sql" />
+    <Folder Include="wolverine\Tables\wolverine_dead_letters.sql" />
+    <Folder Include="wolverine\Tables\wolverine_control_queue.sql" />
+    <Folder Include="wolverine\Types\EnvelopeIdList.sql" />
+    <Folder Include="wolverine\Procedures\uspDeleteIncomingEnvelopes.sql" />
+    <Folder Include="wolverine\Procedures\uspDeleteOutgoingEnvelopes.sql" />
+    <Folder Include="wolverine\Procedures\uspDiscardAndReassignOutgoing.sql" />
+    <Folder Include="wolverine\Procedures\uspMarkOutgoingOwnership.sql" />
+    <Folder Include="dbo\Tables\Users.sql" />
+    <Folder Include="dbo\Tables\PhysicalWarehouses.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PublishProfiles\Development.dbpublish.xml" />

@@ -13,9 +13,9 @@ public class ExistingDbUserAuthorizationHandler : AuthorizationHandler<ExistingD
     private const int _accessTokenExpirationMinutesSubtract = 60;
     private const string _sidClaimType = "onprem_sid";
 
-    private readonly ILogger<ExistingDbUserAuthorizationHandler> _logger;
-    private readonly IMemoryCache _memoryCache;
-    private readonly CommonDbContext _dbContext;
+    readonly ILogger<ExistingDbUserAuthorizationHandler> _logger;
+    readonly IMemoryCache _memoryCache;
+    readonly CommonDbContext _dbContext;
 
     public ExistingDbUserAuthorizationHandler(ILogger<ExistingDbUserAuthorizationHandler> logger, IMemoryCache memoryCache, CommonDbContext dbContext)
     {

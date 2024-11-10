@@ -48,8 +48,6 @@ services.AddEndpointsApiExplorer();
 
 services.AddSwaggerExamplesFromAssemblyOf<Program>();
 
-services.AddAuth();
-
 services.AddControllers();
 
 var app = builder.Build();

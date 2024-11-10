@@ -6,7 +6,9 @@ namespace MaterialPurchase.Common.Infrastructure.Persistence;
 
 public abstract class DbContextBase : DbContext
 {
-    private readonly IMessageBus _bus;
+    public DbSet<DomainEventEnvelope> DomainEvents { get; set; }
+    
+    readonly IMessageBus _bus;
 
     protected DbContextBase(DbContextOptions options, IMessageBus bus)
         : base(options)
@@ -27,6 +29,12 @@ public abstract class DbContextBase : DbContext
             .ToList();
 
         aggregateRoots.ForEach(e => e.ClearDomainEvents());
+        
+        var domainEventEnvelopes = domainEvents
+            .Select(e => new DomainEventEnvelope(e))
+            .ToList();
+
+        DomainEvents.AddRange(domainEventEnvelopes);
 
         foreach (var domainEvent in domainEvents)
         {

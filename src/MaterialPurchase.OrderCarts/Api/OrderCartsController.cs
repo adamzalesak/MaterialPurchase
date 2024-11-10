@@ -3,8 +3,6 @@ using MaterialPurchase.OrderCarts.Application.Commands.CreateOrderCart;
 using MaterialPurchase.OrderCarts.Application.Commands.FinishOrderCart;
 using MaterialPurchase.OrderCarts.Application.Queries.GetOrderCart;
 using MaterialPurchase.OrderCarts.Application.Queries.GetOrderCarts;
-using MaterialPurchase.OrderCarts.Infrastructure.Authorization;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Wolverine;
 
@@ -31,7 +29,6 @@ public class OrderCartsController(IMessageBus bus) : ControllerBase
     }
     
     [HttpGet]
-    [Authorize(OrderCartsPolicies.GetOrderCarts)]
     public async Task<ActionResult<ICollection<GetOrderCartsResponse>>> GetOrderCarts(CancellationToken cancellationToken)
     {
         var result = await bus.InvokeQueryAsync(new GetOrderCartsQuery(), cancellationToken);
@@ -40,7 +37,6 @@ public class OrderCartsController(IMessageBus bus) : ControllerBase
     }
 
     [HttpGet("{id:guid}")]
-    [Authorize]
     public async Task<ActionResult<GetOrderCartResponse?>> GetOrderCart([FromRoute] Guid id, CancellationToken cancellationToken)
     {
         var result = await bus.InvokeQueryAsync(new GetOrderCartQuery(id), cancellationToken);

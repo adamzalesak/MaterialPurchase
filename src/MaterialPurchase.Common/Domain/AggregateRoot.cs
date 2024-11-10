@@ -1,4 +1,6 @@
-﻿namespace MaterialPurchase.Common.Domain;
+﻿using Microsoft.CSharp.RuntimeBinder;
+
+namespace MaterialPurchase.Common.Domain;
 
 public abstract class AggregateRoot : Entity<Guid>, IHasDomainEvents
 {
@@ -10,7 +12,7 @@ public abstract class AggregateRoot : Entity<Guid>, IHasDomainEvents
     {
     }
 
-    private readonly List<IDomainEvent> _domainEvents = [];
+    readonly List<IDomainEvent> _domainEvents = [];
 
     public IReadOnlyList<IDomainEvent> DomainEvents => _domainEvents;
 
@@ -18,6 +20,16 @@ public abstract class AggregateRoot : Entity<Guid>, IHasDomainEvents
     public void RaiseDomainEvent(IDomainEvent domainEvent)
     {
         _domainEvents.Add(domainEvent);
+
+        try
+        {
+            ((dynamic)this).Apply((dynamic)domainEvent);
+        }
+        catch (RuntimeBinderException)
+        {
+            throw new InvalidOperationException(
+                $"Aggregate {GetType().Name} does not handle domain event {domainEvent.GetType().Name}. Implement Apply method.");
+        }
     }
 
     public void ClearDomainEvents() => _domainEvents.Clear();

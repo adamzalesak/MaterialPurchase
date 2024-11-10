@@ -24,4 +24,9 @@ public class Order : AggregateRoot
 
         return order;
     }
+    
+    public void Apply(OrderCreatedDomainEvent domainEvent)
+    {
+        Id = domainEvent.AggregateId;
+    }
 }
