@@ -1,11 +1,8 @@
-﻿using Wolverine;
+﻿namespace MaterialPurchase.Common.Domain;
 
-namespace MaterialPurchase.Common.Domain;
-
-public interface IDomainEvent : IEvent
+public interface IDomainEvent
 {
     AggregateType AggregateType { get; }
     Guid AggregateId { get; }
     DateTimeOffset OccurredOn { get; }
-    
 }
