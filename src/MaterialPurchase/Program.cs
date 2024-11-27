@@ -1,4 +1,5 @@
-﻿using MaterialPurchase.Configuration;
+﻿using Carter;
+using MaterialPurchase.Configuration;
 using MaterialPurchase.Infrastructure;
 using MaterialPurchase.OrderCarts;
 using MaterialPurchase.Orders;
@@ -44,13 +45,17 @@ services.AddCors(cors =>
     });
 });
 
+services.AddControllers();
+services.AddCarter();
+
 services.AddEndpointsApiExplorer();
 
 services.AddSwaggerExamplesFromAssemblyOf<Program>();
 
-services.AddControllers();
 
 var app = builder.Build();
+
+app.MapCarter();
 
 app.UseExceptionHandler(errorApp =>
 {

@@ -2,7 +2,7 @@
 
 namespace MaterialPurchase.OrderCartsContracts.DomainEvents;
 
-public record OrderCartCreatedDomainEvent(Guid AggregateId, string Name) : IDomainEvent
+public record OrderCartCreatedDomainEvent(Guid AggregateId, string Name) : IDomainEvent, IOrderCartDomainEvent
 {
     public AggregateType AggregateType { get; } = AggregateType.OrderCart;
     public DateTimeOffset OccurredOn { get; } = DateTimeOffset.Now;

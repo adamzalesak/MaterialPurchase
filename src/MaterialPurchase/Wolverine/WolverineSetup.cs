@@ -1,18 +1,25 @@
-﻿using JasperFx.CodeGeneration;
+﻿using Confluent.Kafka;
+using JasperFx.CodeGeneration;
 using JasperFx.CodeGeneration.Commands;
 using JasperFx.Core;
+using MaterialPurchase.OrderCartsContracts.DomainEvents;
 using MaterialPurchase.Orders;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Wolverine;
 using Wolverine.ErrorHandling;
 using Wolverine.FluentValidation;
+using Wolverine.Kafka;
 using Wolverine.SqlServer;
 
 namespace MaterialPurchase.Wolverine;
 
 public static class WolverineSetup
 {
+    const string OrderCartQueueName = "orderCart";
+    private const string OrderQueueName = "order";
+    
+    
     public static WebApplicationBuilder SetupWolverine(this WebApplicationBuilder builder)
     {
         builder.Host.UseWolverine(opts =>
@@ -48,16 +55,46 @@ public static class WolverineSetup
             opts.OnException<DbUpdateException>().RetryWithCooldown(50.Milliseconds(), 250.Milliseconds(), 2.Seconds());
             opts.OnException<TimeoutException>().RetryWithCooldown(50.Milliseconds(), 250.Milliseconds(), 2.Seconds());
 
-            // opts.UseKafka("business-support-franz-bootstrap.k8s.notino.dev:32500")
-            //     .ConfigureClient(c =>
-            //     {
-            //         c.SaslUsername = "";
-            //         c.SaslPassword = "";
-            //         c.SaslMechanism =  SaslMechanism.ScramSha512;
-            //         c.SecurityProtocol = SecurityProtocol.SaslPlaintext;
-            //     }); 
-            //
-            // opts.PublishAllMessages().ToKafkaTopics().UseDurableOutbox();
+            opts.UseKafka("pkc-56d1g.eastus.azure.confluent.cloud:9092")
+                .ConfigureClient(c =>
+                {
+                    c.SaslUsername = "";
+                    c.SaslPassword = "";
+                    c.SaslMechanism =  SaslMechanism.Plain;
+                    c.SecurityProtocol = SecurityProtocol.SaslSsl;
+                })
+            .ConfigureProducers(c =>
+                {
+                    c.EnableIdempotence = true;
+                })
+                .ConfigureConsumers(c =>
+                {
+                    c.EnableAutoCommit = true;
+                    c.EnableAutoOffsetStore = true;
+                    // je potřeba nastavit  DeliveryGuarantee.EXACTLY_ONCE?
+                })
+                ;
+
+            // Pro každý agregát bude potřeba nastavit publikování do vlastní local queue se strict ordering,
+            // aby bylo možné paralelizovat aspoň na úrovni agregátů
+            opts.Publish(c =>
+            {
+                c.MessagesImplementing<IOrderCartDomainEvent>();
+                c.ToLocalQueue(OrderCartQueueName).ListenWithStrictOrdering();
+            });
+
+            // tady je MessageBatchMaxDegreeOfParallelism by default 1, což znamená, že zprávy jsou seřazené
+            opts.PublishMessage<OrderCartCreatedDomainEvent>().ToKafkaTopic("topic_0");
+            opts.Publish(c =>
+            {
+                c.Message<OrderCartCreatedDomainEvent>();
+                c.Message<OrderCartFinishedDomainEvent>();
+                c.ToKafkaTopic("topic_0");
+            });
+            
+            // tady by mělo stačit sequential a ne strict ordering, protože kafka bude posílat jen jednu partition
+            // seřazených zpráv (není garance pořadí napříč partitions)
+            opts.ListenToKafkaTopic("topic_0").Sequential();
         });
 
         return builder;

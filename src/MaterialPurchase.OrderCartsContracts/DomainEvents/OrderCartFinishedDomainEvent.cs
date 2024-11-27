@@ -2,7 +2,7 @@
 
 namespace MaterialPurchase.OrderCartsContracts.DomainEvents;
 
-public record OrderCartFinishedDomainEvent(Guid OrderCartId) : IDomainEvent
+public record OrderCartFinishedDomainEvent(Guid OrderCartId) : IDomainEvent, IOrderCartDomainEvent
 {
     public AggregateType AggregateType { get; } = AggregateType.OrderCart;
     public Guid AggregateId { get; } = OrderCartId;

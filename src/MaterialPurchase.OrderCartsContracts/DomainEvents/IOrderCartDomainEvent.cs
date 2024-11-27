@@ -1,0 +1,3 @@
+﻿namespace MaterialPurchase.OrderCartsContracts.DomainEvents;
+
+public interface IOrderCartDomainEvent;
