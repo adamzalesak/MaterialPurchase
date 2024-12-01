@@ -7,12 +7,6 @@ public static class SwaggerSetup
 {
     public static WebApplicationBuilder SetupSwaggerGen(this WebApplicationBuilder builder)
     {
-        var swaggerAuthOptions = builder.Configuration.GetSection(nameof(SwaggerAuthOptions)).Get<SwaggerAuthOptions>();
-        if (swaggerAuthOptions is null)
-        {
-            return builder;
-        }
-
         builder.Services.AddSwaggerGen(options =>
         {
             options.SwaggerDoc("v1", new OpenApiInfo { Title = builder.Environment.ApplicationName, Version = "v1" });
@@ -22,43 +16,6 @@ public static class SwaggerSetup
             options.UseAllOfToExtendReferenceSchemas();
             options.SchemaFilter<RequireNonNullablePropertiesSchemaFilter>();
             options.UseAllOfForInheritance();
-
-            options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-            {
-                Description = "Azure AD authentication",
-                Type = SecuritySchemeType.OAuth2,
-                BearerFormat = "JWT",
-                In = ParameterLocation.Header,
-                Flows = new OpenApiOAuthFlows
-                {
-                    AuthorizationCode = new OpenApiOAuthFlow
-                    {
-                        AuthorizationUrl = swaggerAuthOptions.AuthorizationUrl,
-                        TokenUrl = swaggerAuthOptions.TokenUrl,
-                        Scopes = new Dictionary<string, string>
-                        {
-                            { swaggerAuthOptions.Scope, "Purchase Material API access" },
-                        },
-                    },
-                },
-                OpenIdConnectUrl = swaggerAuthOptions.OpenIdConnectUrl,
-            });
-
-            options.AddSecurityRequirement(new OpenApiSecurityRequirement
-            {
-                {
-                    new OpenApiSecurityScheme
-                    {
-                        Reference = new OpenApiReference
-                        {
-                            Type = ReferenceType.SecurityScheme,
-                            Id = "Bearer",
-                        },
-                        OpenIdConnectUrl = swaggerAuthOptions.OpenIdConnectUrl,
-                    },
-                    new[] { swaggerAuthOptions.Scope }
-                },
-            });
         });
 
         return builder;
@@ -66,7 +23,6 @@ public static class SwaggerSetup
 
     public static WebApplication UseSwaggerWithUI(this WebApplication app)
     {
-        var swaggerAuthOptions = app.Configuration.GetSection(nameof(SwaggerAuthOptions)).Get<SwaggerAuthOptions>();
 
         app.UseSwagger(options =>
         {
@@ -80,10 +36,6 @@ public static class SwaggerSetup
         app.UseSwaggerUI(options =>
         {
             options.SwaggerEndpoint("/.less-known/api-docs/v1.json", "Purchase Material API v1");
-            options.OAuthClientId(swaggerAuthOptions?.ClientId ?? "");
-            options.OAuthAppName("Purchase Material API");
-            options.OAuthScopeSeparator(" ");
-            options.OAuthUsePkce();
             options.RoutePrefix = string.Empty;
         });
 

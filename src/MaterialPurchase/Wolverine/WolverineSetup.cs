@@ -17,8 +17,7 @@ namespace MaterialPurchase.Wolverine;
 public static class WolverineSetup
 {
     const string OrderCartQueueName = "orderCart";
-    private const string OrderQueueName = "order";
-    
+    const string OrderQueueName = "order";
     
     public static WebApplicationBuilder SetupWolverine(this WebApplicationBuilder builder)
     {
