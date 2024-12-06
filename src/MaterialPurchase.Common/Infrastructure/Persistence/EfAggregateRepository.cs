@@ -39,5 +39,4 @@ public class EfAggregateRepository<TAggregateRoot, TDbContext> : IAggregateRepos
     public void AddRange(ICollection<TAggregateRoot> entities) => _dbContext.AddRange(entities);
     public void Remove(TAggregateRoot entity) => _dbContext.Remove(entity);
     public void RemoveRange(ICollection<TAggregateRoot> entities) => _dbContext.RemoveRange(entities);
-    public async Task SaveChangesAsync(CancellationToken cancellationToken) => await _dbContext.SaveChangesAsync(cancellationToken);
 }

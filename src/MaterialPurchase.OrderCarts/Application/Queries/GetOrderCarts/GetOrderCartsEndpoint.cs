@@ -1,5 +1,4 @@
-﻿using MaterialPurchase.Common.Application.CommandsAndQueries;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Wolverine;
@@ -12,7 +11,7 @@ public class GetOrderCartsEndpoint : OrderCartsEndpoint
     {
         app.MapGet("/", async (IMessageBus bus, CancellationToken cancellationToken) =>
             {
-                var result = await bus.InvokeQueryAsync(new GetOrderCartsQuery(), cancellationToken);
+                var result = await bus.InvokeAsync<ICollection<GetOrderCartsResponse>>(new GetOrderCartsQuery(), cancellationToken);
 
                 return Results.Ok(result);
             })

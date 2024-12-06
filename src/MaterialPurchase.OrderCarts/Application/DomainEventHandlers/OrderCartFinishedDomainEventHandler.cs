@@ -20,7 +20,6 @@ public static class OrderCartFinishedDomainEventHandler
         // create new order cart - the order cart should not be saved to the database if the transaction is rolled back
         var newOc = OrderCart.Create("New Order Cart");
         repository.Create(newOc);
-        await repository.SaveChangesAsync(cancellationToken);
 
         throw new ArithmeticException();
         */

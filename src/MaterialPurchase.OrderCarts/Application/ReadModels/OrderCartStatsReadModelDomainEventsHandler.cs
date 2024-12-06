@@ -4,12 +4,12 @@ namespace MaterialPurchase.OrderCarts.Application.ReadModels;
 
 public class OrderCartStatsReadModelDomainEventsHandler
 {
-    public static async Task<OrderCartStatsReadModel?> Load(IUnitOfWork unitOfWork, CancellationToken cancellationToken)
+    public static async Task<OrderCartStatsReadModel?> Load(IOrderCartReadModelRepository readModelRepository, CancellationToken cancellationToken)
     {
-        return await unitOfWork.OrderCartReadModels.GetOrderCartStats(cancellationToken) ?? new OrderCartStatsReadModel();
+        return await readModelRepository.GetOrderCartStats(cancellationToken) ?? new OrderCartStatsReadModel();
     }
 
-    public static void Handle(OrderCartCreatedDomainEvent @event, OrderCartStatsReadModel? readModel, IUnitOfWork unitOfWork,
+    public static void Handle(OrderCartCreatedDomainEvent @event, OrderCartStatsReadModel? readModel, IOrderCartReadModelRepository readModelRepository,
         CancellationToken cancellationToken)
     {
         if (readModel is not null)
@@ -21,10 +21,10 @@ public class OrderCartStatsReadModelDomainEventsHandler
         readModel = new OrderCartStatsReadModel();
         readModel.Apply(@event);
 
-        unitOfWork.OrderCartReadModels.Add(readModel);
+        readModelRepository.Add(readModel);
     }
 
-    public static void Handle(OrderCartFinishedDomainEvent @event, OrderCartStatsReadModel? readModel, IUnitOfWork unitOfWork,
+    public static void Handle(OrderCartFinishedDomainEvent @event, OrderCartStatsReadModel? readModel, IOrderCartReadModelRepository readModelRepository,
         CancellationToken cancellationToken)
     {
         if (readModel is not null)
@@ -36,11 +36,6 @@ public class OrderCartStatsReadModelDomainEventsHandler
         readModel = new OrderCartStatsReadModel();
         readModel.Apply(@event);
 
-        unitOfWork.OrderCartReadModels.Add(readModel);
-    }
-
-    public static async Task After(IUnitOfWork unitOfWork, CancellationToken cancellationToken)
-    {
-        await unitOfWork.SaveChangesAsync(cancellationToken);
+        readModelRepository.Add(readModel);
     }
 }

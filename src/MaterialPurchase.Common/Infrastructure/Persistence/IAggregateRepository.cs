@@ -14,5 +14,4 @@ public interface IAggregateRepository<TAggregateRoot>
     void AddRange(ICollection<TAggregateRoot> entities);
     void Remove(TAggregateRoot entity);
     void RemoveRange(ICollection<TAggregateRoot> entities);
-    Task SaveChangesAsync(CancellationToken cancellationToken);
 }

@@ -1,5 +1,0 @@
-﻿include:
-  - project: ${AUTO_DEVOPS_PROJECT}
-    ref: '${AUTO_DEVOPS_REF}'
-    file: '.conventional-release-tbd.yml'
-  - local: .confluent-ci.yml

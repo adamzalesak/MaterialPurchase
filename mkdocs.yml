@@ -1,7 +1,0 @@
-﻿site_name: "Material Purchase Api"
-
-plugins:
-  - techdocs-core
-
-nav:
-  - "README.md"

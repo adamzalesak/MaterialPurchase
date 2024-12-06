@@ -11,12 +11,6 @@
     <TargetFrameworkProfile />
   </PropertyGroup>
   <ItemGroup>
-    <PreDeploy Include="Scripts/Script.PreDeployment.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <PostDeploy Include="Scripts/Script.PostDeployment.sql" />
-  </ItemGroup>
-  <ItemGroup>
     <Build Remove="ContinuousDeployment/**" />
     <Build Include="dbo\Tables\Products.sql" />
     <Build Include="orderCarts\Tables\DomainEvents.sql" />
@@ -46,11 +40,9 @@
     <Build Include="dbo\Tables\PhysicalWarehouses.sql" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Scripts\" />
     <Folder Include="Security\" />
     <Folder Include="orderCarts" />
     <Folder Include="Security\Schemas" />
-    <Folder Include="PublishProfiles\" />
     <Folder Include="orders\" />
     <Folder Include="wolverine\Procedures\" />
     <Folder Include="wolverine\Tables\" />
@@ -59,7 +51,6 @@
     <Folder Include="dbo" />
     <Folder Include="orderCarts\Tables\OrderCartHeaders.sql" />
     <Folder Include="orders\Tables\OrderHeaders.sql" />
-    <Folder Include="Security\Schemas\ContinuousDeployment.sql" />
     <Folder Include="Security\Schemas\orders.sql" />
     <Folder Include="Security\Schemas\orderCarts.sql" />
     <Folder Include="Security\Schemas\wolverine.sql" />
@@ -78,11 +69,6 @@
     <Folder Include="wolverine\Procedures\uspMarkOutgoingOwnership.sql" />
     <Folder Include="dbo\Tables\Users.sql" />
     <Folder Include="dbo\Tables\PhysicalWarehouses.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="PublishProfiles\Development.dbpublish.xml" />
-    <None Include="PublishProfiles\Production.dbpublish.xml" />
-    <None Include="PublishProfiles\Staging.dbpublish.xml" />
   </ItemGroup>
   <ItemGroup>
     <SqlCmdVariable Include="environment">

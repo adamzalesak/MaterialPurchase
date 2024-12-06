@@ -1,5 +1,4 @@
-﻿using MaterialPurchase.Common.Application.CommandsAndQueries;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
@@ -13,7 +12,7 @@ public class FinishOrderCartEndpoint : OrderCartsEndpoint
     {
         app.MapPut("/{id:guid}/order", async ([FromRoute] Guid id, IMessageBus bus, CancellationToken cancellationToken) =>
         {
-            await bus.InvokeCommandAsync(new OrderProductCommand(), cancellationToken);
+            await bus.InvokeAsync(new OrderProductCommand(), cancellationToken);
             return Results.Ok();
         });
     }

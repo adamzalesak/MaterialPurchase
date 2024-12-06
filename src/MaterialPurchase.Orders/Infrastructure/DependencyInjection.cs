@@ -21,7 +21,6 @@ public static class DependencyInjection
         );
 
         builder.Services.AddScoped<IAggregateRepository<Order>, EfAggregateRepository<Order, OrdersDbContext>>();
-        builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
         
         builder.Services.AddScoped<IOrderReadRepository, OrderReadRepository>();
 

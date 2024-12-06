@@ -1,8 +1,11 @@
-﻿using System.Text.Json;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json;
 using MaterialPurchase.Common.Domain;
 
 namespace MaterialPurchase.Common.Infrastructure.Persistence;
 
+[Table("DomainEvents", Schema = "orderCarts")]
 public class DomainEventEnvelope : Entity<Guid>
 {
 #pragma warning disable CS8618
@@ -13,16 +16,26 @@ public class DomainEventEnvelope : Entity<Guid>
 
     public DomainEventEnvelope(IDomainEvent domainEvent)
     {
+        Id = Guid.NewGuid();
         AggregateType = domainEvent.AggregateType;
         AggregateId = domainEvent.AggregateId;
+        AggregateVersion = domainEvent.AggregateVersion;
         OccurredOn = domainEvent.OccurredOn;
         EventType = domainEvent.GetType().FullName ?? "";
         Data = JsonSerializer.Serialize(domainEvent, domainEvent.GetType());
     }
 
-    public AggregateType AggregateType { get; }
-    public Guid AggregateId { get; }
-    public DateTimeOffset OccurredOn { get; }
-    public string Data { get; }
-    public string EventType { get; }
+    [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.None)]
+    public new Guid Id { get; set; }
+
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    public int SequenceNumber { get; set; }
+
+    public AggregateType AggregateType { get; set; }
+    public Guid AggregateId { get; set; }
+    public Guid AggregateVersion { get; set; }
+    public DateTimeOffset OccurredOn { get; set; }
+    public string Data { get; set; }
+    public string EventType { get; set; }
 }

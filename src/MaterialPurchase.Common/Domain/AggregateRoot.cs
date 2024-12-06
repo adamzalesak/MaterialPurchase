@@ -4,8 +4,7 @@ namespace MaterialPurchase.Common.Domain;
 
 public abstract class AggregateRoot : Entity<Guid>, IHasDomainEvents
 {
-    [ConcurrencyCheck]
-    public int Version { get; set; }
+    [ConcurrencyCheck] public Guid Version { get; set; }
 
     protected AggregateRoot(Guid id) : base(id)
     {
@@ -16,16 +15,16 @@ public abstract class AggregateRoot : Entity<Guid>, IHasDomainEvents
     }
 
     readonly List<IDomainEvent> _domainEvents = [];
-
     public IReadOnlyList<IDomainEvent> DomainEvents => _domainEvents;
 
 
     protected void RaiseDomainEvent(IDomainEvent domainEvent)
     {
         ((dynamic)this).Apply((dynamic)domainEvent);
-        Version++;
 
-        domainEvent.Version = Version;
+        Version = Guid.NewGuid();
+
+        domainEvent.AggregateVersion = Version;
         _domainEvents.Add(domainEvent);
     }
 

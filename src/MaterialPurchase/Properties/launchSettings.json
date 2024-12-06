@@ -11,7 +11,7 @@
                 "ASPNETCORE_ENVIRONMENT": "Development"
             }
         },
-        "MaterialPurchase-NoSwagger": {
+        "MaterialPurchase-WithoutSwagger": {
             "commandName": "Project",
             "dotnetRunMessages": true,
             "launchBrowser": false,

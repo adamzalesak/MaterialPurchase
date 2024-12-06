@@ -1,3 +1,5 @@
-﻿namespace MaterialPurchase.OrderCartsContracts.Queries;
+﻿using MaterialPurchase.Common.Application;
 
-public record GetOrderCartItemsQuery(Guid OrderCartId);
+namespace MaterialPurchase.OrderCartsContracts.Queries;
+
+public record GetOrderCartItemsQuery(Guid OrderCartId) : IQuery;

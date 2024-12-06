@@ -18,7 +18,9 @@ public static class WolverineSetup
 {
     const string OrderCartQueueName = "orderCart";
     const string OrderQueueName = "order";
-    
+
+    private static readonly TimeSpan[] RetryIntervals = [50.Milliseconds(), 250.Milliseconds(), 2.Seconds()];
+
     public static WebApplicationBuilder SetupWolverine(this WebApplicationBuilder builder)
     {
         builder.Host.UseWolverine(opts =>
@@ -54,21 +56,17 @@ public static class WolverineSetup
             opts.OnException<DbUpdateException>().RetryWithCooldown(RetryIntervals);
             opts.OnException<TimeoutException>().RetryWithCooldown(RetryIntervals);
 
-            //  DbUpdateConcurrencyException
             opts.OnException<DbUpdateConcurrencyException>().RetryWithCooldown(RetryIntervals);
 
             opts.UseKafka("pkc-56d1g.eastus.azure.confluent.cloud:9092")
                 .ConfigureClient(c =>
                 {
-                    c.SaslUsername = "";
-                    c.SaslPassword = "";
-                    c.SaslMechanism =  SaslMechanism.Plain;
+                    c.SaslUsername = "D6ULSE5C46WQJLVW";
+                    c.SaslPassword = "49jQnKDLREXR9Qrpue9+vxqsItxW/TaYDwsAO6ulgg+mqr+aHubjVecWaL+vvLTF";
+                    c.SaslMechanism = SaslMechanism.Plain;
                     c.SecurityProtocol = SecurityProtocol.SaslSsl;
                 })
-            .ConfigureProducers(c =>
-                {
-                    c.EnableIdempotence = true;
-                })
+                .ConfigureProducers(c => { c.EnableIdempotence = true; })
                 .ConfigureConsumers(c =>
                 {
                     c.EnableAutoCommit = true;
@@ -96,7 +94,7 @@ public static class WolverineSetup
 
             // tady by mělo stačit sequential a ne strict ordering, protože kafka bude posílat jen jednu partition
             // seřazených zpráv (není garance pořadí napříč partitions);
-            opts.ListenToKafkaTopic("topic_0").Sequential();
+            // opts.ListenToKafkaTopic("topic_0").Sequential();
         });
 
         return builder;

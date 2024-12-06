@@ -1,5 +1,4 @@
-﻿using MaterialPurchase.Common.Application.CommandsAndQueries;
-using MaterialPurchase.OrdersContracts.Commands.CreateOrder;
+﻿using MaterialPurchase.OrdersContracts.Commands.CreateOrder;
 using Microsoft.AspNetCore.Mvc;
 using Wolverine;
 
@@ -12,7 +11,7 @@ public class OrdersController(IMessageBus bus) : ControllerBase
     [HttpPost]
     public async Task<ActionResult> CreateOrder(CancellationToken cancellationToken)
     {
-        await bus.InvokeCommandAsync(new CreateOrderCommand(), cancellationToken);
+        await bus.InvokeAsync(new CreateOrderCommand(), cancellationToken);
         return Ok();
     }
 }

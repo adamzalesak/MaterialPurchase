@@ -1,9 +1,0 @@
-﻿apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: material-purchase-api
-  annotations:
-    kubernetes.io/ingress.class: nginx
-#    nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
-#    nginx.ingress.kubernetes.io/proxy-write-timeout: "600"
-#    nginx.ingress.kubernetes.io/proxy-body-size: "30m"

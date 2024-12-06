@@ -1,5 +1,5 @@
-﻿using MaterialPurchase.Common.Application.CommandsAndQueries;
+﻿using MaterialPurchase.Common.Application;
 
 namespace MaterialPurchase.OrderCarts.Application.Queries.GetOrderCarts;
 
-public record GetOrderCartsQuery : IQuery<ICollection<GetOrderCartsResponse>>;
+public record GetOrderCartsQuery : IQuery;

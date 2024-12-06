@@ -1,5 +1,3 @@
-﻿using MaterialPurchase.Common.Application.CommandsAndQueries;
+﻿namespace MaterialPurchase.OrdersContracts.Commands.CreateOrder;
 
-namespace MaterialPurchase.OrdersContracts.Commands.CreateOrder;
-
-public record CreateOrderCommand : ICommand;
+public record CreateOrderCommand;

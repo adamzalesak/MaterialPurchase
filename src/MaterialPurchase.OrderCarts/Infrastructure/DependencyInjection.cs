@@ -24,7 +24,6 @@ public static class DependencyInjection
         );
 
         builder.Services.AddScoped<IAggregateRepository<OrderCart>, EfAggregateRepository<OrderCart, OrderCartsDbContext>>();
-        builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
         builder.Services.AddScoped<IOrderCartReadRepository, OrderCartReadRepository>();
         builder.Services.AddScoped<IOrderCartReadModelRepository, OrderCartReadModelRepository>();

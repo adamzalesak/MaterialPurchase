@@ -1,19 +1,10 @@
-﻿using MaterialPurchase.Common.Application.CommandsAndQueries;
+﻿namespace MaterialPurchase.OrderCarts.Application.Queries.GetOrderCart;
 
-namespace MaterialPurchase.OrderCarts.Application.Queries.GetOrderCart;
-
-public class GetOrderCartQueryHandler : IQueryHandler<GetOrderCartQuery, GetOrderCartResponse?>
+public class GetOrderCartQueryHandler
 {
-    readonly IOrderCartReadRepository _readRepository;
-
-    public GetOrderCartQueryHandler(IOrderCartReadRepository readRepository)
+    public async Task<GetOrderCartResponse?> Handle(GetOrderCartQuery query, IOrderCartReadRepository readRepository, CancellationToken cancellationToken)
     {
-        _readRepository = readRepository;
-    }
-
-    public async Task<GetOrderCartResponse?> Handle(GetOrderCartQuery query, CancellationToken cancellationToken)
-    {
-        var selectModel = await _readRepository.GetOrderCart(query.Id, cancellationToken);
+        var selectModel = await readRepository.GetOrderCart(query.Id, cancellationToken);
 
         return selectModel is null ? null : new GetOrderCartResponse { Id = selectModel.Id, Name = selectModel.Name };
     }

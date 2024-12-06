@@ -1,4 +1,5 @@
-﻿using MaterialPurchase.OrderCartsContracts.DomainEvents;
+﻿using MaterialPurchase.Common.Infrastructure.Persistence;
+using MaterialPurchase.OrderCartsContracts.DomainEvents;
 using MaterialPurchase.OrderCartsContracts.Queries;
 using MaterialPurchase.OrderCartsContracts.Queries.Models;
 using MaterialPurchase.Orders.Domain.Order;
@@ -9,7 +10,7 @@ namespace MaterialPurchase.Orders.Application.DomainEventHandlers;
 
 public static class CreateOrderOnOrderCartFinishedDomainEventHandler
 {
-    public static async Task Handle(OrderCartFinishedDomainEvent @event, IUnitOfWork unitOfWork,
+    public static async Task Handle(OrderCartFinishedDomainEvent @event, IAggregateRepository<Order> repository,
         IOrderReadRepository readRepository, IMessageBus bus, CancellationToken cancellationToken)
     {
         Console.WriteLine($"Order cart with id: {@event.OrderCartId} finished -> creating order.");
@@ -29,8 +30,6 @@ public static class CreateOrderOnOrderCartFinishedDomainEventHandler
 
         var order = Order.Create(orderCartId: @event.OrderCartId);
 
-        unitOfWork.Orders.Add(order);
-
-        await unitOfWork.SaveChangesAsync(cancellationToken);
+        repository.Add(order);
     }
 }

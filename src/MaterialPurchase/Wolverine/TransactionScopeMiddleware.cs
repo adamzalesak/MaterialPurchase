@@ -1,4 +1,4 @@
-﻿using MaterialPurchase.Common.Application.CommandsAndQueries;
+﻿using MaterialPurchase.Common.Application;
 using System.Transactions;
 using MaterialPurchase.OrderCarts.Infrastructure.Persistence;
 using MaterialPurchase.Orders.Infrastructure.Persistence;
@@ -9,6 +9,7 @@ namespace MaterialPurchase.Wolverine;
 public sealed class TransactionScopeMiddleware : IDisposable
 {
     TransactionScope? _transactionScope;
+
     readonly OrderCartsDbContext _orderCartsDbContext;
     readonly OrdersDbContext _ordersDbContext;
 
@@ -20,13 +21,7 @@ public sealed class TransactionScopeMiddleware : IDisposable
 
     public void Before(IMessageContext context)
     {
-        var messageInterfaces = context.Envelope?.Message?.GetType().GetInterfaces();
-        var isQuery = messageInterfaces?.Any(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IQuery<>)) ?? false;
-
-        if (isQuery)
-        {
-            return;
-        }
+        if (context.Envelope?.Message is IQuery) return;
 
         _transactionScope = new TransactionScope(
             TransactionScopeOption.Required,
@@ -35,8 +30,10 @@ public sealed class TransactionScopeMiddleware : IDisposable
         );
     }
 
-    public async Task After(CancellationToken cancellationToken)
+    public async Task After(IMessageContext context, CancellationToken cancellationToken)
     {
+        if (context.Envelope?.Message is IQuery) return;
+
         await _orderCartsDbContext.SaveChangesAsync(cancellationToken);
         await _ordersDbContext.SaveChangesAsync(cancellationToken);
 
