@@ -1,7 +1,8 @@
-﻿CREATE TABLE [orderCarts].[OrderCartHeaders]
+﻿create table [orderCarts].[OrderCartHeaders]
 (
-    [Id]     uniqueidentifier not null,
-    [Name]   nvarchar(200)    not null,
-    [Status] int              not null,
+    [Id]      uniqueidentifier not null,
+    [Version] int              not null,
+    [Name]    nvarchar(200)    not null,
+    [Status]  int              not null,
     constraint [PK_orderCarts_OrderCartHeaders] primary key clustered ([Id] asc)
 )

@@ -50,9 +50,12 @@ public static class WolverineSetup
 
             opts.Policies.AddMiddleware(typeof(TransactionScopeMiddleware));
 
-            opts.OnException<SqlException>().RetryWithCooldown(50.Milliseconds(), 250.Milliseconds(), 2.Seconds());
-            opts.OnException<DbUpdateException>().RetryWithCooldown(50.Milliseconds(), 250.Milliseconds(), 2.Seconds());
-            opts.OnException<TimeoutException>().RetryWithCooldown(50.Milliseconds(), 250.Milliseconds(), 2.Seconds());
+            opts.OnException<SqlException>().RetryWithCooldown(RetryIntervals);
+            opts.OnException<DbUpdateException>().RetryWithCooldown(RetryIntervals);
+            opts.OnException<TimeoutException>().RetryWithCooldown(RetryIntervals);
+
+            //  DbUpdateConcurrencyException
+            opts.OnException<DbUpdateConcurrencyException>().RetryWithCooldown(RetryIntervals);
 
             opts.UseKafka("pkc-56d1g.eastus.azure.confluent.cloud:9092")
                 .ConfigureClient(c =>
@@ -83,16 +86,16 @@ public static class WolverineSetup
             });
 
             // tady je MessageBatchMaxDegreeOfParallelism by default 1, což znamená, že zprávy jsou seřazené
-            opts.PublishMessage<OrderCartCreatedDomainEvent>().ToKafkaTopic("topic_0");
-            opts.Publish(c =>
-            {
-                c.Message<OrderCartCreatedDomainEvent>();
-                c.Message<OrderCartFinishedDomainEvent>();
-                c.ToKafkaTopic("topic_0");
-            });
-            
+            // opts.PublishMessage<OrderCartCreatedDomainEvent>().ToKafkaTopic("topic_0");
+            // opts.Publish(c =>
+            // {
+            //     c.Message<OrderCartCreatedDomainEvent>();
+            //     c.Message<OrderCartFinishedDomainEvent>();
+            //     c.ToKafkaTopic("topic_0");
+            // });
+
             // tady by mělo stačit sequential a ne strict ordering, protože kafka bude posílat jen jednu partition
-            // seřazených zpráv (není garance pořadí napříč partitions)
+            // seřazených zpráv (není garance pořadí napříč partitions);
             opts.ListenToKafkaTopic("topic_0").Sequential();
         });
 

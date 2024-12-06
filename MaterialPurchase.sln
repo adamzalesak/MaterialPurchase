@@ -8,7 +8,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MaterialPurchase", "src\Mat
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{4AC60055-9D35-471C-A243-F4DFF243818E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XunitTests", "test\xunit\XunitTests.csproj", "{C5F412D2-B7B8-422E-87AD-9892CAC389EF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTests", "test\xunit\UnitTests.csproj", "{C5F412D2-B7B8-422E-87AD-9892CAC389EF}"
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "MaterialPurchase.Database", "database\MaterialPurchase.Database.sqlproj", "{9A01B967-42C2-455E-92A4-64EDC0F79D15}"
 EndProject

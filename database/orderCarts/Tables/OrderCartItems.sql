@@ -1,4 +1,4 @@
-CREATE TABLE [orderCarts].[OrderCartItems]
+create table [orderCarts].[OrderCartItems]
 (
     [Id]          uniqueidentifier not null,
     [OrderCartId] uniqueidentifier not null,

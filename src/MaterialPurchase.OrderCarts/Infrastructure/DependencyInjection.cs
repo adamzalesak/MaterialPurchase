@@ -27,6 +27,7 @@ public static class DependencyInjection
         builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
         builder.Services.AddScoped<IOrderCartReadRepository, OrderCartReadRepository>();
+        builder.Services.AddScoped<IOrderCartReadModelRepository, OrderCartReadModelRepository>();
         builder.Services.AddScoped<IProductReadRepository, ProductReadRepository>();
 
         return builder;

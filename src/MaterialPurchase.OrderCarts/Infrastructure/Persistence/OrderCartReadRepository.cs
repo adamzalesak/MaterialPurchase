@@ -20,4 +20,16 @@ public class OrderCartReadRepository(OrderCartsDbContext dbContext) : IOrderCart
             .Select(x => new OrderCartSelectModel { Id = x.Id, Name = x.Name })
             .ToListAsync(cancellationToken);
     }
+
+    public async Task<OrderCartStatsSelectModel?> GetOrderCartStats(CancellationToken cancellationToken)
+    {
+        return await dbContext.OrderCartStatsReadModels
+            .Select(x =>
+                new OrderCartStatsSelectModel
+                {
+                    CreatedCount = x.CreatedCount,
+                    FinishedCount = x.FinishedCount,
+                })
+            .FirstOrDefaultAsync(cancellationToken);
+    }
 }

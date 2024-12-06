@@ -1,4 +1,4 @@
-CREATE TABLE [orders].[DomainEvents]
+create table [orders].[DomainEvents]
 (
     [Id]            uniqueidentifier not null,
     [AggregateType] nvarchar(100)    not null,

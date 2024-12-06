@@ -18,7 +18,7 @@ public class OrderCart(Guid id, string name, OrderCartStatus status) : Aggregate
 
     public static OrderCart Create(string name)
     {
-        var orderCart = new OrderCart(Guid.NewGuid(), name, OrderCartStatus.Created);
+        var orderCart = new OrderCart();
 
         var domainEvent = new OrderCartCreatedDomainEvent(orderCart.Id, name);
         orderCart.RaiseDomainEvent(domainEvent);

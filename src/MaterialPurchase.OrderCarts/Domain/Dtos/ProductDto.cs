@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace MaterialPurchase.OrderCarts.Application.Entities;
+namespace MaterialPurchase.OrderCarts.Domain.Dtos;
 
-public record Product
+public record ProductDto
 {
     public int Id { get; init; }
     [Required, StringLength(50)] public required string Code { get; init; }

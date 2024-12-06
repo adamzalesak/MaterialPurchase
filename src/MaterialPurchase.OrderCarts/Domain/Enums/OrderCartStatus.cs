@@ -2,7 +2,6 @@
 
 public enum OrderCartStatus
 {
-    Created = 0,
-    Processing,
+    Created,
     Finished,
 }

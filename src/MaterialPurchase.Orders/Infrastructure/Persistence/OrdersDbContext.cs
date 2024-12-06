@@ -11,6 +11,7 @@ public class OrdersDbContext(DbContextOptions<OrdersDbContext> options, IMessage
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.HasDefaultSchema("orders");
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(OrdersDbContext).Assembly);
     }
 }

@@ -4,7 +4,11 @@ using MaterialPurchase.OrderCarts.Domain;
 
 namespace MaterialPurchase.OrderCarts.Infrastructure.Persistence;
 
-public class UnitOfWork(OrderCartsDbContext dbContext, IAggregateRepository<OrderCart> orderCarts) : UnitOfWorkBase(dbContext), IUnitOfWork
+public class UnitOfWork(
+    OrderCartsDbContext dbContext,
+    IAggregateRepository<OrderCart> orderCarts,
+    IOrderCartReadModelRepository orderCartReadModelRepository) : UnitOfWorkBase(dbContext), IUnitOfWork
 {
     public IAggregateRepository<OrderCart> OrderCarts { get; } = orderCarts;
+    public IOrderCartReadModelRepository OrderCartReadModels { get; } = orderCartReadModelRepository;
 }

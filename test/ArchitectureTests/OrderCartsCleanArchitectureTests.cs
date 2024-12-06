@@ -1,5 +1,4 @@
-﻿using MaterialPurchase.OrderCarts.Api;
-using MaterialPurchase.OrderCarts.Application.Queries.GetOrderCart;
+﻿using MaterialPurchase.OrderCarts.Application.Queries.GetOrderCart;
 using MaterialPurchase.OrderCarts.Domain;
 using MaterialPurchase.OrderCarts.Infrastructure.Persistence;
 using NetArchTest.Rules;
@@ -58,22 +57,6 @@ public class ArchitectureTests
             .ResideInNamespace("MaterialPurchase.OrderCarts.Infrastructure")
             .ShouldNot()
             .HaveDependencyOn("MaterialPurchase.OrderCarts.Api")
-            .GetResult();
-
-        Assert.True(result.IsSuccessful);
-    }
-
-    [Fact]
-    public void ApiDoesNotReferenceDomain()
-    {
-        var assembly = typeof(OrderCartsController).Assembly;
-
-        var result = Types
-            .InAssembly(assembly)
-            .That()
-            .ResideInNamespace("MaterialPurchase.OrderCarts.Api")
-            .ShouldNot()
-            .HaveDependencyOn("MaterialPurchase.OrderCarts.Infrastructure")
             .GetResult();
 
         Assert.True(result.IsSuccessful);

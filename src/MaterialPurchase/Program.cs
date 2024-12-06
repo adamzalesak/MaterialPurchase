@@ -1,6 +1,5 @@
 ﻿using Carter;
 using MaterialPurchase.Configuration;
-using MaterialPurchase.Infrastructure;
 using MaterialPurchase.OrderCarts;
 using MaterialPurchase.Orders;
 using MaterialPurchase.Wolverine;
@@ -20,7 +19,7 @@ builder.Host
 builder
     .AddOrderCartsModule()
     .AddOrdersModule()
-    .AddCommon();
+    ;
 
 builder.SetupWolverine();
 

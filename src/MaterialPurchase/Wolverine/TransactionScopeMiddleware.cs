@@ -1,5 +1,7 @@
 ﻿using MaterialPurchase.Common.Application.CommandsAndQueries;
 using System.Transactions;
+using MaterialPurchase.OrderCarts.Infrastructure.Persistence;
+using MaterialPurchase.Orders.Infrastructure.Persistence;
 using Wolverine;
 
 namespace MaterialPurchase.Wolverine;
@@ -7,6 +9,14 @@ namespace MaterialPurchase.Wolverine;
 public sealed class TransactionScopeMiddleware : IDisposable
 {
     TransactionScope? _transactionScope;
+    readonly OrderCartsDbContext _orderCartsDbContext;
+    readonly OrdersDbContext _ordersDbContext;
+
+    public TransactionScopeMiddleware(OrderCartsDbContext orderCartsDbContext, OrdersDbContext ordersDbContext)
+    {
+        _orderCartsDbContext = orderCartsDbContext;
+        _ordersDbContext = ordersDbContext;
+    }
 
     public void Before(IMessageContext context)
     {
@@ -25,8 +35,11 @@ public sealed class TransactionScopeMiddleware : IDisposable
         );
     }
 
-    public void After()
+    public async Task After(CancellationToken cancellationToken)
     {
+        await _orderCartsDbContext.SaveChangesAsync(cancellationToken);
+        await _ordersDbContext.SaveChangesAsync(cancellationToken);
+
         _transactionScope?.Complete();
     }
 
