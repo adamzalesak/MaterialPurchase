@@ -19,7 +19,7 @@ public abstract class DbContextBase : DbContext
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
         var aggregateRoots = ChangeTracker
-            .Entries<IHasDomainEvents>()
+            .Entries<AggregateRoot>()
             .Select(e => e.Entity)
             .Where(e => e.DomainEvents.Any())
             .ToList();

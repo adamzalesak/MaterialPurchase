@@ -2,7 +2,7 @@
 
 namespace MaterialPurchase.Common.Domain;
 
-public abstract class AggregateRoot : Entity<Guid>, IHasDomainEvents
+public abstract class AggregateRoot : Entity<Guid>
 {
     [ConcurrencyCheck] public Guid Version { get; set; }
 

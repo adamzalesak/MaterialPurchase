@@ -1,3 +1,0 @@
-﻿namespace MaterialPurchase.OrdersContracts.Commands.CreateOrder;
-
-public record CreateOrderCommand;
