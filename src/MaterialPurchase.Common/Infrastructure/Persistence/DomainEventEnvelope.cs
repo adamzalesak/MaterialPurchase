@@ -1,18 +1,20 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json;
 using MaterialPurchase.Common.Domain;
 
 namespace MaterialPurchase.Common.Infrastructure.Persistence;
 
-[Table("DomainEvents", Schema = "orderCarts")]
 public class DomainEventEnvelope : Entity<Guid>
 {
-#pragma warning disable CS8618
-    public DomainEventEnvelope()
-    {
-    }
-#pragma warning restore CS8618
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    public int SequenceNumber { get; set; }
+
+    public AggregateType AggregateType { get; set; }
+    public Guid AggregateId { get; set; }
+    public Guid AggregateVersion { get; set; }
+    public DateTimeOffset OccurredOn { get; set; }
+    public string Data { get; set; }
+    public string EventType { get; set; }
 
     public DomainEventEnvelope(IDomainEvent domainEvent)
     {
@@ -25,17 +27,9 @@ public class DomainEventEnvelope : Entity<Guid>
         Data = JsonSerializer.Serialize(domainEvent, domainEvent.GetType());
     }
 
-    [Key]
-    [DatabaseGenerated(DatabaseGeneratedOption.None)]
-    public new Guid Id { get; set; }
-
-    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public int SequenceNumber { get; set; }
-
-    public AggregateType AggregateType { get; set; }
-    public Guid AggregateId { get; set; }
-    public Guid AggregateVersion { get; set; }
-    public DateTimeOffset OccurredOn { get; set; }
-    public string Data { get; set; }
-    public string EventType { get; set; }
+#pragma warning disable CS8618
+    public DomainEventEnvelope()
+    {
+    }
+#pragma warning restore CS8618
 }
