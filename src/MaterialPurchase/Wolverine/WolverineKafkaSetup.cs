@@ -1,6 +1,6 @@
 ﻿using Confluent.Kafka;
 using MaterialPurchase.Common.Infrastructure.Kafka;
-using MaterialPurchase.OrderCartsContracts.IntegrationEvents;
+// using MaterialPurchase.OrderCartsContracts.IntegrationEvents;
 using Wolverine;
 using Wolverine.Kafka;
 
@@ -11,7 +11,7 @@ public static class WolverineKafkaSetup
     public static WolverineOptions SetupKafka(this WolverineOptions opts, WebApplicationBuilder builder)
     {
         var kafkaConfig = builder.Configuration.GetSection("Kafka").Get<KafkaConfig>();
-        if (kafkaConfig is not null)
+        if (kafkaConfig is not null && kafkaConfig.BootstrapServers != string.Empty)
         {
             opts.UseKafka(kafkaConfig.BootstrapServers)
                 .ConfigureClient(c =>
@@ -26,16 +26,18 @@ public static class WolverineKafkaSetup
 
 
         // MessageBatchMaxDegreeOfParallelism is 1 by default, which means that messages are published sequentially
-        opts.Publish(c =>
-        {
-            c.MessagesImplementing<IOrderCartIntegrationEvent>();
-            c.ToKafkaTopic("MaterialPurchase.OrderCartIntegrationEvents");
-        });
+
+        // opts.Publish(c =>
+        // {
+        //     c.MessagesImplementing<IOrderCartIntegrationEvent>();
+        //     c.ToKafkaTopic("MaterialPurchase.OrderCartIntegrationEvents");
+        // });
 
 
         // Kafka sends messages belonging to a single partition, ordered within that partition.
         // So consuming sequentially is enough to ensure ordering.
-        opts.ListenToKafkaTopic("Catalog.ProductChanged").Sequential();
+
+        // opts.ListenToKafkaTopic("Catalog.ProductChanged").Sequential();
 
         return opts;
     }
