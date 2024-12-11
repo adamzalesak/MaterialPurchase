@@ -2,10 +2,15 @@
 
 namespace MaterialPurchase.OrderCartsContracts.DomainEvents;
 
-public record OrderCartCreatedDomainEvent(Guid AggregateId, string Name) : IDomainEvent, IOrderCartDomainEvent
+public record OrderCartCreatedDomainEvent : DomainEvent, IOrderCartDomainEvent
 {
-    public AggregateType AggregateType { get; set; } = AggregateType.OrderCart;
-    public Guid AggregateId { get; set; } = AggregateId;
-    public Guid AggregateVersion { get; set; }
-    public DateTimeOffset OccurredOn { get; } = DateTimeOffset.Now;
+    public OrderCartCreatedDomainEvent(Guid aggregateId, string name)
+    {
+        AggregateId = aggregateId;
+        Name = name;
+    }
+
+    public override AggregateType AggregateType => AggregateType.OrderCart;
+    public string Name { get; }
+
 }

@@ -2,10 +2,7 @@
 
 namespace MaterialPurchase.OrdersContracts.DomainEvents;
 
-public record OrderCreatedDomainEvent(Guid OrderId) : IDomainEvent
+public record OrderCreatedDomainEvent(Guid OrderId) : DomainEvent
 {
-    public AggregateType AggregateType { get; } = AggregateType.Order;
-    public Guid AggregateId { get; set; } = OrderId;
-    public Guid AggregateVersion { get; set; }
-    public DateTimeOffset OccurredOn { get; } = DateTimeOffset.Now;
+    public override AggregateType AggregateType => AggregateType.Order;
 }

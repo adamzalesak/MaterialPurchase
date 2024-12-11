@@ -13,9 +13,8 @@ public class FinishOrderCartCommandHandler
                throw new ArgumentException("Order cart not found");
     }
     
-    public static OrderCartFinishedDomainEvent Handle(FinishOrderCartCommand command, OrderCart orderCart)
+    public static void Handle(FinishOrderCartCommand command, OrderCart orderCart)
     {
         orderCart.Finish();
-        return new OrderCartFinishedDomainEvent(orderCart.Id);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using MaterialPurchase.Common.Infrastructure.Persistence;
 using MaterialPurchase.OrderCarts.Domain;
+using MaterialPurchase.OrderCarts.Domain.Dtos;
 
 namespace MaterialPurchase.OrderCarts.Application.Commands.OrderProduct;
 
@@ -12,23 +13,32 @@ public record OfferDto
 
 public class OrderProductCommandHandler
 {
-    public async Task<(OrderCart, OfferDto)> Load(OrderProductCommand command, IAggregateRepository<OrderCart> repository,
+    public async Task<(OrderCart, OfferDto, ProductDto)> Load(OrderProductCommand command, IAggregateRepository<OrderCart> repository,
+        IProductReadRepository productReadRepository,
         CancellationToken cancellationToken)
     {
         var orderCart = await repository.GetById(command.OrderCartId, cancellationToken) ??
-               throw new ArgumentException("Order cart not found");
+                        throw new ArgumentException("Order cart not found");
         var offer = new OfferDto
         {
             Id = command.OfferId,
             SupplierId = 1,
-            Price = 100m
+            Price = 100m,
         };
-        
-        return (orderCart, offer);
+
+        var products = await productReadRepository.GetProductsByIds(new List<int> { command.ProductId }, cancellationToken);
+        if (products.Count == 0)
+        {
+            throw new ArgumentException("Product not found");
+        }
+
+        var product = products.First();
+
+        return (orderCart, offer, product);
     }
 
-    public void Handle(OrderProductCommand command, OrderCart orderCart, OfferDto offer)
+    public void Handle(OrderProductCommand command, OrderCart orderCart, OfferDto offer, ProductDto product)
     {
-        orderCart.OrderProduct(command.ProductId, command.OfferId, offer.SupplierId, command.Quantity, offer.Price);
+        orderCart.OrderProduct(product, offer.Id, offer.SupplierId, command.Quantity, offer.Price);
     }
 }

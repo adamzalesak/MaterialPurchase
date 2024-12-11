@@ -13,22 +13,22 @@ public static class CreateOrderOnOrderCartFinishedDomainEventHandler
     public static async Task Handle(OrderCartFinishedDomainEvent @event, IAggregateRepository<Order> repository,
         IOrderReadRepository readRepository, IMessageBus bus, CancellationToken cancellationToken)
     {
-        Console.WriteLine($"Order cart with id: {@event.OrderCartId} finished -> creating order.");
+        Console.WriteLine($"Order cart with id: {@event.AggregateId} finished -> creating order.");
 
-        var alreadyCreated = await readRepository.ExistsByOrderCartId(@event.OrderCartId, cancellationToken);
+        var alreadyCreated = await readRepository.ExistsByOrderCartId(@event.AggregateId, cancellationToken);
         if (alreadyCreated)
         {
             return;
         }
 
         // get data from another module by invoking a query
-        var orderCartItemsQuery = new GetOrderCartItemsQuery(@event.OrderCartId);
+        var orderCartItemsQuery = new GetOrderCartItemsQuery(@event.AggregateId);
         var orderCartItems = await bus.InvokeAsync<ICollection<OrderCartItemQueryModel>>(orderCartItemsQuery, cancellationToken) ??
                              throw new InvalidOperationException("Order cart items not found.");
 
         _ = orderCartItems;
 
-        var order = Order.Create(orderCartId: @event.OrderCartId);
+        var order = Order.Create(orderCartId: @event.AggregateId);
 
         repository.Add(order);
     }

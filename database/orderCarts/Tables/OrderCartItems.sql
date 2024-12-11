@@ -1,6 +1,7 @@
 create table [orderCarts].[OrderCartItems]
 (
     [Id]          uniqueidentifier not null,
+    [Name]        nvarchar(200)    not null,
     [OrderCartId] uniqueidentifier not null,
     [ProductId]   int              not null,
     [OfferId]     uniqueidentifier not null,

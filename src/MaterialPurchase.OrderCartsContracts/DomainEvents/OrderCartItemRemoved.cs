@@ -2,11 +2,8 @@
 
 namespace MaterialPurchase.OrderCartsContracts.DomainEvents;
 
-public record OrderCartItemRemoved : IDomainEvent, IOrderCartDomainEvent
+public record OrderCartItemRemoved : DomainEvent, IOrderCartDomainEvent
 {
+    public override AggregateType AggregateType => AggregateType.OrderCart;
     public Guid OrderCartItemId { get; init; }
-    public Guid AggregateId { get; set; }
-    public Guid AggregateVersion { get; set; }
-    public AggregateType AggregateType { get; } = AggregateType.OrderCart;
-    public DateTimeOffset OccurredOn { get; } = DateTimeOffset.UtcNow;
 }

@@ -16,7 +16,7 @@ public class DomainEventEnvelope : Entity<Guid>
     public string Data { get; set; }
     public string EventType { get; set; }
 
-    public DomainEventEnvelope(IDomainEvent domainEvent)
+    public DomainEventEnvelope(DomainEvent domainEvent)
     {
         Id = Guid.NewGuid();
         AggregateType = domainEvent.AggregateType;

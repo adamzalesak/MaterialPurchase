@@ -10,7 +10,7 @@ public class OrderCartConfiguration : IEntityTypeConfiguration<OrderCart>
     {
         builder.ToTable("OrderCartHeaders", "orderCarts");
         builder.HasKey(orderCart => orderCart.Id);
-        builder.OwnsMany(orderCart => orderCart.OrderCartItems, orderCartItem =>
+        builder.OwnsMany(orderCart => orderCart.Items, orderCartItem =>
         {
             orderCartItem.ToTable("OrderCartItems", "orderCarts");
             orderCartItem.WithOwner().HasForeignKey(x => x.OrderCartId);

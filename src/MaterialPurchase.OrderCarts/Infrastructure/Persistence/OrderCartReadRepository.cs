@@ -1,4 +1,5 @@
 ﻿using MaterialPurchase.OrderCarts.Application;
+using MaterialPurchase.OrderCarts.Application.Queries.GetOrderCarts;
 using MaterialPurchase.OrderCarts.Application.SelectModels;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,14 +11,19 @@ public class OrderCartReadRepository(OrderCartsDbContext dbContext) : IOrderCart
     {
         return await dbContext.OrderCarts
             .Where(x => x.Id == id)
-            .Select(x => new OrderCartSelectModel { Id = x.Id, Name = x.Name })
+            .Select(x => new OrderCartSelectModel
+            {
+                Id = x.Id, Name = x.Name, Status = x.Status,
+                Items = x.Items.Select(i => new OrderCartItemSelectModel { Id = i.Id, Name = i.Name, Quantity = i.Quantity })
+                    .ToList()
+            })
             .FirstOrDefaultAsync(cancellationToken);
     }
 
-    public async Task<ICollection<OrderCartSelectModel>> GetOrderCarts(CancellationToken cancellationToken)
+    public async Task<ICollection<GetOrderCartsResponse>> GetOrderCarts(CancellationToken cancellationToken)
     {
         return await dbContext.OrderCarts
-            .Select(x => new OrderCartSelectModel { Id = x.Id, Name = x.Name })
+            .Select(x => new GetOrderCartsResponse { Id = x.Id, Name = x.Name, Status = x.Status.ToString() })
             .ToListAsync(cancellationToken);
     }
 

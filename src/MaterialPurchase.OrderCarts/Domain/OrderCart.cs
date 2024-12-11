@@ -1,4 +1,5 @@
 ﻿using MaterialPurchase.Common.Domain;
+using MaterialPurchase.OrderCarts.Domain.Dtos;
 using MaterialPurchase.OrderCarts.Domain.Entities;
 using MaterialPurchase.OrderCartsContracts.DomainEvents;
 using MaterialPurchase.OrderCarts.Domain.Enums;
@@ -9,8 +10,8 @@ public class OrderCart(Guid id, string name, OrderCartStatus status) : Aggregate
 {
     public string Name { get; private set; } = name;
     public OrderCartStatus Status { get; private set; } = status;
-    readonly List<OrderCartItem> _orderCartItems = [];
-    public IReadOnlyCollection<OrderCartItem> OrderCartItems => _orderCartItems;
+    readonly List<OrderCartItem> _items = [];
+    public IReadOnlyCollection<OrderCartItem> Items => _items;
 
     private OrderCart() : this(Guid.Empty, string.Empty, OrderCartStatus.Created)
     {
@@ -33,19 +34,19 @@ public class OrderCart(Guid id, string name, OrderCartStatus status) : Aggregate
             throw new InvalidOperationException("Order cart is already finished");
         }
 
-        var domainEvent = new OrderCartFinishedDomainEvent(Id);
+        var domainEvent = new OrderCartFinishedDomainEvent();
         RaiseDomainEvent(domainEvent);
     }
 
-    public void OrderProduct(int productId, Guid offerId, int supplierId, int quantity, decimal price)
+    public void OrderProduct(ProductDto product, Guid offerId, int supplierId, int quantity, decimal price)
     {
         if (Status == OrderCartStatus.Finished)
         {
             throw new InvalidOperationException("Cannot order product in finished order cart");
         }
 
-        var orderCartItem = _orderCartItems.Find(i =>
-            i.ProductId == productId &&
+        var orderCartItem = _items.Find(i =>
+            i.ProductId == product.Id &&
             i.OfferId == offerId &&
             i.SupplierId == supplierId &&
             i.Price == price
@@ -66,12 +67,12 @@ public class OrderCart(Guid id, string name, OrderCartStatus status) : Aggregate
             RaiseDomainEvent(new OrderCartItemOrdered
             {
                 OrderCartItemId = Guid.NewGuid(),
-                ProductId = productId,
+                ProductId = product.Id,
+                Name = product.Name,
                 OfferId = offerId,
                 SupplierId = supplierId,
                 Quantity = quantity,
                 Price = price,
-                AggregateId = Id,
             });
         }
     }
@@ -83,7 +84,7 @@ public class OrderCart(Guid id, string name, OrderCartStatus status) : Aggregate
             throw new InvalidOperationException("Cannot remove product from finished order cart");
         }
 
-        var orderCartItem = _orderCartItems.Find(i => i.Id == orderCartItemId) ??
+        var orderCartItem = _items.Find(i => i.Id == orderCartItemId) ??
                             throw new InvalidOperationException("Order cart item not found");
 
         RaiseDomainEvent(new OrderCartItemRemoved
@@ -105,22 +106,22 @@ public class OrderCart(Guid id, string name, OrderCartStatus status) : Aggregate
 
     public void Apply(OrderCartItemOrdered domainEvent)
     {
-        var newOrderCartItem = new OrderCartItem(domainEvent.ProductId, domainEvent.OfferId, domainEvent.SupplierId, domainEvent.Quantity,
+        var newOrderCartItem = new OrderCartItem(domainEvent.ProductId, domainEvent.Name, domainEvent.OfferId, domainEvent.SupplierId, domainEvent.Quantity,
             domainEvent.Price);
-        _orderCartItems.Add(newOrderCartItem);
+        _items.Add(newOrderCartItem);
     }
 
     public void Apply(OrderCartItemOrderedQuantityChanged domainEvent)
     {
-        var orderCartItem = _orderCartItems.Find(i => i.Id == domainEvent.OrderCartItemId) ??
+        var orderCartItem = _items.Find(i => i.Id == domainEvent.OrderCartItemId) ??
                             throw new InvalidOperationException("Order cart item not found");
         orderCartItem.UpdateQuantity(domainEvent.Quantity);
     }
     
     public void Apply(OrderCartItemRemoved domainEvent)
     {
-        var orderCartItem = _orderCartItems.Find(i => i.Id == domainEvent.OrderCartItemId) ??
+        var orderCartItem = _items.Find(i => i.Id == domainEvent.OrderCartItemId) ??
                             throw new InvalidOperationException("Order cart item not found");
-        _orderCartItems.Remove(orderCartItem);
+        _items.Remove(orderCartItem);
     }
 }
