@@ -1,7 +1,6 @@
 ﻿using JasperFx.CodeGeneration;
 using JasperFx.CodeGeneration.Commands;
 using JasperFx.Core;
-using MaterialPurchase.Orders;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Wolverine;
@@ -13,14 +12,14 @@ namespace MaterialPurchase.Wolverine;
 
 public static class WolverineSetup
 {
-    private static readonly TimeSpan[] RetryIntervals = [50.Milliseconds(), 250.Milliseconds(), 2.Seconds()];
+    static readonly TimeSpan[] RetryIntervals = [50.Milliseconds(), 250.Milliseconds(), 2.Seconds()];
 
     public static WebApplicationBuilder SetupWolverine(this WebApplicationBuilder builder)
     {
         builder.Host.UseWolverine(opts =>
         {
             opts.ApplicationAssembly = typeof(Program).Assembly;
-            opts.Discovery.IncludeAssembly(typeof(DependencyInjection).Assembly);
+            opts.Discovery.IncludeAssembly(typeof(Orders.DependencyInjection).Assembly);
             opts.Discovery.IncludeAssembly(typeof(OrderCarts.DependencyInjection).Assembly);
 
 
@@ -44,14 +43,18 @@ public static class WolverineSetup
 
 
             opts.UseFluentValidation();
-            opts.Policies.AddMiddleware(typeof(TransactionScopeMiddleware));
+            opts.Policies.AddMiddleware<TransactionalMiddleware>(chain => !chain.MessageType.Name.EndsWith("Query"));
 
 
-            opts.OnException<SqlException>().RetryWithCooldown(RetryIntervals);
-            opts.OnException<DbUpdateException>().RetryWithCooldown(RetryIntervals);
-            opts.OnException<TimeoutException>().RetryWithCooldown(RetryIntervals);
+            opts.OnException<SqlException>().RetryWithCooldown(RetryIntervals)
+                .Then.ScheduleRetryIndefinitely(5.Minutes());
+            opts.OnException<DbUpdateException>().RetryWithCooldown(RetryIntervals)
+                .Then.ScheduleRetryIndefinitely(5.Minutes());
+            opts.OnException<TimeoutException>().RetryWithCooldown(RetryIntervals)
+                .Then.ScheduleRetryIndefinitely(5.Minutes());
 
-            opts.OnException<DbUpdateConcurrencyException>().RetryWithCooldown(RetryIntervals);
+            opts.OnException<DbUpdateConcurrencyException>().RetryWithCooldown(RetryIntervals)
+                .Then.ScheduleRetryIndefinitely(5.Minutes());
 
 
             opts.SetupLocalQueues();

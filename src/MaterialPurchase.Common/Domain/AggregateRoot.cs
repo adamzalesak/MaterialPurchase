@@ -24,6 +24,7 @@ public abstract class AggregateRoot : Entity<Guid>
 
         Version = Guid.NewGuid();
 
+        domainEvent.AggregateId = Id;
         domainEvent.AggregateVersion = Version;
         _domainEvents.Add(domainEvent);
     }

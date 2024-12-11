@@ -30,6 +30,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaterialPurchase.OrdersCont
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArchitectureTests", "test\ArchitectureTests\ArchitectureTests.csproj", "{392CA905-4CC5-48F4-BB8D-CB000DDB4EB0}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Offers", "Offers", "{D90ED025-E417-4A19-BA6E-E8EAB7F1FCA7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaterialPurchase.Offers", "src\MaterialPurchase.Offers\MaterialPurchase.Offers.csproj", "{9DF9B04E-38CE-48EB-9AB4-321E2A414E26}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -72,6 +76,10 @@ Global
 		{392CA905-4CC5-48F4-BB8D-CB000DDB4EB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{392CA905-4CC5-48F4-BB8D-CB000DDB4EB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{392CA905-4CC5-48F4-BB8D-CB000DDB4EB0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9DF9B04E-38CE-48EB-9AB4-321E2A414E26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9DF9B04E-38CE-48EB-9AB4-321E2A414E26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9DF9B04E-38CE-48EB-9AB4-321E2A414E26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9DF9B04E-38CE-48EB-9AB4-321E2A414E26}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -88,6 +96,8 @@ Global
 		{F5D316A4-EB6B-47DE-BAB3-97D5490C5D4B} = {73134CFD-81B4-412B-849B-BB0BE1AB26F2}
 		{1F690EFD-18CB-45EB-BAB5-6B3513D7AE60} = {A4D3A6FB-7F29-430C-AEEC-9443DB4E3204}
 		{392CA905-4CC5-48F4-BB8D-CB000DDB4EB0} = {4AC60055-9D35-471C-A243-F4DFF243818E}
+		{D90ED025-E417-4A19-BA6E-E8EAB7F1FCA7} = {0462ECCF-6D25-479D-9C47-05F444AD9159}
+		{9DF9B04E-38CE-48EB-9AB4-321E2A414E26} = {D90ED025-E417-4A19-BA6E-E8EAB7F1FCA7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {561F96F1-DF12-4364-A164-CD482277CB80}

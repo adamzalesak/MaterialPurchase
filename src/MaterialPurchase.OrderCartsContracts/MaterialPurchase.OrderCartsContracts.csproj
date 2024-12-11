@@ -13,6 +13,5 @@
     <ItemGroup>
         <Folder Include="Commands\"/>
         <Folder Include="Queries\"/>
-        <Folder Include="DomainEvents\"/>
     </ItemGroup>
 </Project>

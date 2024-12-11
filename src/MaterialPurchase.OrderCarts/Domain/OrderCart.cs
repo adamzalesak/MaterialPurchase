@@ -37,25 +37,59 @@ public class OrderCart(Guid id, string name, OrderCartStatus status) : Aggregate
         RaiseDomainEvent(domainEvent);
     }
 
-    public void AddItem(int productId, int quantity, decimal price, int supplierId, Guid offerId)
+    public void OrderProduct(int productId, Guid offerId, int supplierId, int quantity, decimal price)
     {
         if (Status == OrderCartStatus.Finished)
         {
-            throw new InvalidOperationException("Cannot add item to finished order cart");
+            throw new InvalidOperationException("Cannot order product in finished order cart");
         }
 
-        var existingItem = _orderCartItems.FirstOrDefault(i =>
-            i.ProductId == productId && i.SupplierId == supplierId && i.OfferId == offerId && i.Price == price);
-        if (existingItem != null)
+        var orderCartItem = _orderCartItems.Find(i =>
+            i.ProductId == productId &&
+            i.OfferId == offerId &&
+            i.SupplierId == supplierId &&
+            i.Price == price
+        );
+
+        if (orderCartItem is not null && orderCartItem.Quantity != quantity)
         {
-            existingItem.AddQuantity(quantity);
+            RaiseDomainEvent(new OrderCartItemOrderedQuantityChanged
+            {
+                OrderCartItemId = orderCartItem.Id,
+                Quantity = quantity,
+            });
+            return;
         }
-        else
+
+        if (orderCartItem is null)
         {
-            var orderCartItem =
-                new OrderCartItem(productId: productId, offerId: Guid.NewGuid(), supplierId: 1, quantity: quantity, price: 0);
-            _orderCartItems.Add(orderCartItem);
+            RaiseDomainEvent(new OrderCartItemOrdered
+            {
+                OrderCartItemId = Guid.NewGuid(),
+                ProductId = productId,
+                OfferId = offerId,
+                SupplierId = supplierId,
+                Quantity = quantity,
+                Price = price,
+                AggregateId = Id,
+            });
         }
+    }
+    
+    public void RemoveItem(Guid orderCartItemId)
+    {
+        if (Status == OrderCartStatus.Finished)
+        {
+            throw new InvalidOperationException("Cannot remove product from finished order cart");
+        }
+
+        var orderCartItem = _orderCartItems.Find(i => i.Id == orderCartItemId) ??
+                            throw new InvalidOperationException("Order cart item not found");
+
+        RaiseDomainEvent(new OrderCartItemRemoved
+        {
+            OrderCartItemId = orderCartItem.Id,
+        });
     }
 
     public void Apply(OrderCartCreatedDomainEvent domainEvent)
@@ -67,5 +101,26 @@ public class OrderCart(Guid id, string name, OrderCartStatus status) : Aggregate
     public void Apply(OrderCartFinishedDomainEvent domainEvent)
     {
         Status = OrderCartStatus.Finished;
+    }
+
+    public void Apply(OrderCartItemOrdered domainEvent)
+    {
+        var newOrderCartItem = new OrderCartItem(domainEvent.ProductId, domainEvent.OfferId, domainEvent.SupplierId, domainEvent.Quantity,
+            domainEvent.Price);
+        _orderCartItems.Add(newOrderCartItem);
+    }
+
+    public void Apply(OrderCartItemOrderedQuantityChanged domainEvent)
+    {
+        var orderCartItem = _orderCartItems.Find(i => i.Id == domainEvent.OrderCartItemId) ??
+                            throw new InvalidOperationException("Order cart item not found");
+        orderCartItem.UpdateQuantity(domainEvent.Quantity);
+    }
+    
+    public void Apply(OrderCartItemRemoved domainEvent)
+    {
+        var orderCartItem = _orderCartItems.Find(i => i.Id == domainEvent.OrderCartItemId) ??
+                            throw new InvalidOperationException("Order cart item not found");
+        _orderCartItems.Remove(orderCartItem);
     }
 }

@@ -2,7 +2,7 @@
 
 namespace MaterialPurchase.OrderCarts.Domain.Entities;
 
-public class OrderCartItem : Entity<int>
+public class OrderCartItem : Entity<Guid>
 {
     public Guid OrderCartId { get; private set; }
     public int ProductId { get; private set; }
@@ -20,8 +20,8 @@ public class OrderCartItem : Entity<int>
         Price = price;
     }
 
-    public void AddQuantity(int quantity)
+    public void UpdateQuantity(int quantity)
     {
-        Quantity += quantity;
+        Quantity = quantity;
     }
 }

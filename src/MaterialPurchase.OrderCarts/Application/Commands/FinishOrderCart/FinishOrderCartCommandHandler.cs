@@ -1,16 +1,21 @@
 ﻿using MaterialPurchase.Common.Infrastructure.Persistence;
 using MaterialPurchase.OrderCarts.Domain;
+using MaterialPurchase.OrderCartsContracts.DomainEvents;
 
 namespace MaterialPurchase.OrderCarts.Application.Commands.FinishOrderCart;
 
 public class FinishOrderCartCommandHandler
 {
-    public async Task Handle(FinishOrderCartCommand command, IAggregateRepository<OrderCart> repository,
+    public static async Task<OrderCart> Load(FinishOrderCartCommand command, IAggregateRepository<OrderCart> repository,
         CancellationToken cancellationToken)
     {
-        var orderCart = await repository.GetById(command.OrderCartId, cancellationToken) ??
-                        throw new ArgumentException("Order cart not found");
-
+        return await repository.GetById(command.OrderCartId, cancellationToken) ??
+               throw new ArgumentException("Order cart not found");
+    }
+    
+    public static OrderCartFinishedDomainEvent Handle(FinishOrderCartCommand command, OrderCart orderCart)
+    {
         orderCart.Finish();
+        return new OrderCartFinishedDomainEvent(orderCart.Id);
     }
 }

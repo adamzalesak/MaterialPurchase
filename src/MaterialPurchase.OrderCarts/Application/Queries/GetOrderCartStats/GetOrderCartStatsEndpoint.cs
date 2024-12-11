@@ -15,6 +15,6 @@ public class GetOrderCartStatsEndpoint : OrderCartsEndpoint
 
                 return Results.Ok(result);
             })
-            .Produces<ICollection<GetOrderCartStatsQuery>>();
+            .Produces<ICollection<GetOrderCartStatsResponse>>();
     }
 }
