@@ -2,6 +2,7 @@
 
 public enum AggregateType
 {
-    OrderCart = 0,
-    Order = 1,
+    Offer = 0,
+    OrderCart = 1,
+    Order = 2,
 }

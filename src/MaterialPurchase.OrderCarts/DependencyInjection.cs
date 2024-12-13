@@ -8,7 +8,6 @@ public static class DependencyInjection
 {
     public static WebApplicationBuilder AddOrderCartsModule(this WebApplicationBuilder builder)
     {
-        builder.Services.AddControllers();
         builder.AddInfrastructure();
         
         return builder;

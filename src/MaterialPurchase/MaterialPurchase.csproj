@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MaterialPurchase.Common\MaterialPurchase.Common.csproj" />
+    <ProjectReference Include="..\MaterialPurchase.Offers\MaterialPurchase.Offers.csproj" />
     <ProjectReference Include="..\MaterialPurchase.OrderCarts\MaterialPurchase.OrderCarts.csproj" />
     <ProjectReference Include="..\MaterialPurchase.Orders\MaterialPurchase.Orders.csproj" />
   </ItemGroup>
