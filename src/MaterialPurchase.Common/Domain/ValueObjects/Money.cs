@@ -1,8 +1,8 @@
 ﻿namespace MaterialPurchase.Common.Domain.ValueObjects;
 
-public record Money(decimal Value, string Currency)
+public record Money(decimal Amount, string Currency)
 {
-    public Money(decimal value) : this(value, "EUR")
+    public Money(decimal amount) : this(amount, "EUR")
     {
     }
     
@@ -13,7 +13,7 @@ public record Money(decimal Value, string Currency)
             throw new InvalidOperationException("Cannot add money with different currencies");
         }
 
-        return money1 with { Value = money1.Value + money2.Value };
+        return money1 with { Amount = money1.Amount + money2.Amount };
     }
     
     public static Money operator -(Money money1, Money money2)
@@ -23,6 +23,6 @@ public record Money(decimal Value, string Currency)
             throw new InvalidOperationException("Cannot subtract money with different currencies");
         }
 
-        return money1 with { Value = money1.Value - money2.Value };
+        return money1 with { Amount = money1.Amount - money2.Amount };
     }
 }

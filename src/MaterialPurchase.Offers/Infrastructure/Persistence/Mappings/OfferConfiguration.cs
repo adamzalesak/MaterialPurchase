@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace MaterialPurchase.Offers.Infrastructure.Persistence.Mappings;
 
-public class OrderCartConfiguration : IEntityTypeConfiguration<Offer>
+public class OfferConfiguration : IEntityTypeConfiguration<Offer>
 {
     public void Configure(EntityTypeBuilder<Offer> builder)
     {
@@ -14,6 +14,11 @@ public class OrderCartConfiguration : IEntityTypeConfiguration<Offer>
         {
             orderCartItem.ToTable("OfferItems");
             orderCartItem.WithOwner().HasForeignKey(x => x.OfferId);
+            orderCartItem.OwnsOne(x => x.Price, price =>
+            {
+                price.Property(x => x.Amount).HasColumnName("Price").IsRequired();
+                price.Property(x => x.Currency).HasColumnName("Currency").IsRequired();
+            });
         });
     }
 }

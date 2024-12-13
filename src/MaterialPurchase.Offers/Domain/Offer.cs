@@ -12,6 +12,7 @@ public class Offer : AggregateRoot
     public OfferStatus Status { get; private set; }
     public DateTimeOffset ValidFrom { get; private set; }
     public DateTimeOffset? ValidTo { get; private set; }
+    public string? Note { get; private set; }
     private List<OfferItem> _offerItems = [];
     public IReadOnlyCollection<OfferItem> OfferItems => _offerItems;
 
@@ -19,7 +20,7 @@ public class Offer : AggregateRoot
     {
     }
 
-    public static Offer Create(int supplierId, DateTimeOffset validFrom, DateTimeOffset? validTo)
+    public static Offer Create(int supplierId, DateTimeOffset validFrom, DateTimeOffset? validTo, string? note)
     {
         var offer = new Offer();
         offer.RaiseDomainEvent(new OfferCreatedDomainEvent
@@ -28,6 +29,7 @@ public class Offer : AggregateRoot
             SupplierId = supplierId,
             ValidFrom = validFrom,
             ValidTo = validTo,
+            Note = note,
         });
 
         return offer;
@@ -92,6 +94,7 @@ public class Offer : AggregateRoot
         ValidFrom = domainEvent.ValidFrom;
         ValidTo = domainEvent.ValidTo;
         Status = OfferStatus.Draft;
+        Note = domainEvent.Note;
     }
 
     public void Apply(OfferItemAddedDomainEvent domainEvent)

@@ -21,7 +21,7 @@ public static class WolverineSetup
             opts.ApplicationAssembly = typeof(Program).Assembly;
             opts.Discovery.IncludeAssembly(typeof(Orders.DependencyInjection).Assembly);
             opts.Discovery.IncludeAssembly(typeof(OrderCarts.DependencyInjection).Assembly);
-
+            opts.Discovery.IncludeAssembly(typeof(Offers.DependencyInjection).Assembly);
 
             opts.CodeGeneration.TypeLoadMode = TypeLoadMode.Static;
             if (builder.Environment.IsDevelopment())

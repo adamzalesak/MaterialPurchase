@@ -1,2 +1,2 @@
-﻿CREATE SCHEMA [orderCarts]
-    AUTHORIZATION [dbo];
+﻿create schema [orderCarts]
+    authorization [dbo];

@@ -1,2 +1,2 @@
-﻿CREATE SCHEMA [wolverine]
-    AUTHORIZATION [dbo];
+﻿create schema [wolverine]
+    authorization [dbo];
