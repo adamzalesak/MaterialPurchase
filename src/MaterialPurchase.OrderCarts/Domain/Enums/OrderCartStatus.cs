@@ -2,6 +2,7 @@
 
 public enum OrderCartStatus
 {
-    Created,
-    Finished,
+    Created = 0,
+    Finished = 1,
+    Canceled = 2,
 }

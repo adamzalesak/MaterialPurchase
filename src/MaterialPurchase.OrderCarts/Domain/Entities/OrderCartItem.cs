@@ -22,7 +22,7 @@ public class OrderCartItem : Entity<Guid>
         Price = price;
     }
 
-    public void UpdateQuantity(int quantity)
+    internal void UpdateQuantity(int quantity)
     {
         Quantity = quantity;
     }

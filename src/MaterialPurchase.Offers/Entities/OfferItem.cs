@@ -1,6 +1,38 @@
-﻿namespace MaterialPurchase.Offers.Entities;
+﻿using MaterialPurchase.Common.Domain;
+using MaterialPurchase.Common.Domain.ValueObjects;
 
-public class OfferItem
+namespace MaterialPurchase.Offers.Entities;
+
+public class OfferItem : Entity<Guid>
 {
-    
+    public Guid OfferId { get; private set; }
+    public int ProductId { get; private set; }
+    public Money Price { get; private set; } = default!;
+    public int AvailableQuantity { get; private set; }
+
+    private OfferItem()
+    {
+    }
+
+    public static OfferItem Create(Guid id, Guid offerId, int productId, int availableQuantity, Money price)
+    {
+        return new OfferItem
+        {
+            Id = id,
+            OfferId = offerId,
+            ProductId = productId,
+            AvailableQuantity = availableQuantity,
+            Price = price,
+        };
+    }
+
+    internal void ReserveQuantity(int quantity)
+    {
+        if (AvailableQuantity < quantity)
+        {
+            throw new InvalidOperationException("Not enough available quantity");
+        }
+
+        AvailableQuantity -= quantity;
+    }
 }

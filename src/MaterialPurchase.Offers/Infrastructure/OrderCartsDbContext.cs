@@ -14,7 +14,7 @@ public class OffersDbContext(DbContextOptions<OffersDbContext> options, IMessage
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.HasDefaultSchema("orderCarts");
+        modelBuilder.HasDefaultSchema("offers");
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(OffersDbContext).Assembly);
     }
 }
