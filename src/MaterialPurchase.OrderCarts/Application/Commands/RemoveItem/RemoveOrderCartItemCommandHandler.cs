@@ -3,9 +3,9 @@ using MaterialPurchase.OrderCarts.Domain;
 
 namespace MaterialPurchase.OrderCarts.Application.Commands.RemoveItem;
 
-public class RemoveOrderCartItemCommandHandler
+public static class RemoveOrderCartItemCommandHandler
 {
-    public async Task<OrderCart> Load(RemoveOrderCartItemCommand command, IAggregateRepository<OrderCart> repository,
+    public static async Task<OrderCart> Load(RemoveOrderCartItemCommand command, IAggregateRepository<OrderCart> repository,
         CancellationToken cancellationToken)
     {
         var orderCart = await repository.GetById(command.OrderCartId, cancellationToken) ??
@@ -13,7 +13,7 @@ public class RemoveOrderCartItemCommandHandler
         return orderCart;
     }
     
-    public void Handle(RemoveOrderCartItemCommand command, OrderCart orderCart)
+    public static void Handle(RemoveOrderCartItemCommand command, OrderCart orderCart)
     {
         orderCart.RemoveItem(command.OrderCartItemId);
     }

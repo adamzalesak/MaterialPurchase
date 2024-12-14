@@ -3,7 +3,7 @@ using MaterialPurchase.Offers.Domain;
 
 namespace MaterialPurchase.Offers.Application.Commands.CreateOffer;
 
-public class CreateOfferCommandHandler
+public static class CreateOfferCommandHandler
 {
     public static Guid Handle(CreateOfferCommand command, IAggregateRepository<Offer> repository)
     {

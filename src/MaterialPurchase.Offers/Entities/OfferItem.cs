@@ -8,13 +8,13 @@ public class OfferItem : Entity<Guid>
     public Guid OfferId { get; private set; }
     public int ProductId { get; private set; }
     public Money Price { get; private set; } = default!;
-    public int AvailableQuantity { get; private set; }
+    public int? AvailableQuantity { get; private set; }
 
     private OfferItem()
     {
     }
 
-    public static OfferItem Create(Guid id, Guid offerId, int productId, int availableQuantity, Money price)
+    public static OfferItem Create(Guid id, Guid offerId, int productId, int? availableQuantity, Money price)
     {
         return new OfferItem
         {

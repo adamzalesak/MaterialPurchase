@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Internal\Generated\WolverineHandlers\" />
+    <Folder Include="Internal\Generated\" />
   </ItemGroup>
 
 </Project>

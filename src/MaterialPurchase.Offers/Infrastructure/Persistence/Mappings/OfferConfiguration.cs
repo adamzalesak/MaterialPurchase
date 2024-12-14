@@ -9,12 +9,14 @@ public class OfferConfiguration : IEntityTypeConfiguration<Offer>
     public void Configure(EntityTypeBuilder<Offer> builder)
     {
         builder.ToTable("OfferHeaders");
-        builder.HasKey(orderCart => orderCart.Id);
-        builder.OwnsMany(orderCart => orderCart.OfferItems, orderCartItem =>
+        builder.HasKey(offer => offer.Id);
+        builder.OwnsMany(offer => offer.OfferItems, offerItem =>
         {
-            orderCartItem.ToTable("OfferItems");
-            orderCartItem.WithOwner().HasForeignKey(x => x.OfferId);
-            orderCartItem.OwnsOne(x => x.Price, price =>
+            offerItem.ToTable("OfferItems");
+            offerItem.HasKey(x => x.Id);
+            offerItem.Property(x => x.Id).ValueGeneratedNever();
+            offerItem.WithOwner().HasForeignKey(x => x.OfferId);
+            offerItem.OwnsOne(x => x.Price, price =>
             {
                 price.Property(x => x.Amount).HasColumnName("Price").IsRequired();
                 price.Property(x => x.Currency).HasColumnName("Currency").IsRequired();

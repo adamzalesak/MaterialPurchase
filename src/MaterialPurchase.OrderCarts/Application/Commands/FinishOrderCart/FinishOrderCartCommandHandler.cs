@@ -1,10 +1,9 @@
 ﻿using MaterialPurchase.Common.Infrastructure.Persistence;
 using MaterialPurchase.OrderCarts.Domain;
-using MaterialPurchase.OrderCartsContracts.DomainEvents;
 
 namespace MaterialPurchase.OrderCarts.Application.Commands.FinishOrderCart;
 
-public class FinishOrderCartCommandHandler
+public static class FinishOrderCartCommandHandler
 {
     public static async Task<OrderCart> Load(FinishOrderCartCommand command, IAggregateRepository<OrderCart> repository,
         CancellationToken cancellationToken)

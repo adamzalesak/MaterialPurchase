@@ -35,7 +35,7 @@ public class Offer : AggregateRoot
         return offer;
     }
 
-    public void AddOfferItem(int productId, int availableQuantity, Money price)
+    public void AddOfferItem(int productId, Money price, int? availableQuantity)
     {
         if (Status != OfferStatus.Draft)
         {
@@ -100,8 +100,8 @@ public class Offer : AggregateRoot
     public void Apply(OfferItemAddedDomainEvent domainEvent)
     {
         _offerItems.Add(OfferItem.Create(
-            offerId: domainEvent.OfferId,
             id: domainEvent.OfferItemId,
+            offerId: domainEvent.OfferId,
             productId: domainEvent.ProductId,
             availableQuantity: domainEvent.AvailableQuantity,
             price: domainEvent.Price

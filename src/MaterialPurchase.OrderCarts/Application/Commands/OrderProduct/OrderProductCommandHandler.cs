@@ -4,6 +4,7 @@ using MaterialPurchase.OrderCarts.Domain.Dtos;
 
 namespace MaterialPurchase.OrderCarts.Application.Commands.OrderProduct;
 
+// TODO
 public record OfferDto
 {
     public Guid Id { get; init; }
@@ -11,9 +12,9 @@ public record OfferDto
     public decimal Price { get; init; }
 }
 
-public class OrderProductCommandHandler
+public static class OrderProductCommandHandler
 {
-    public async Task<(OrderCart, OfferDto, ProductDto)> Load(OrderProductCommand command, IAggregateRepository<OrderCart> repository,
+    public static async Task<(OrderCart, OfferDto, ProductDto)> Load(OrderProductCommand command, IAggregateRepository<OrderCart> repository,
         IProductReadRepository productReadRepository,
         CancellationToken cancellationToken)
     {
@@ -37,7 +38,7 @@ public class OrderProductCommandHandler
         return (orderCart, offer, product);
     }
 
-    public void Handle(OrderProductCommand command, OrderCart orderCart, OfferDto offer, ProductDto product)
+    public static void Handle(OrderProductCommand command, OrderCart orderCart, OfferDto offer, ProductDto product)
     {
         orderCart.OrderProduct(product, offer.Id, offer.SupplierId, command.Quantity, offer.Price);
     }

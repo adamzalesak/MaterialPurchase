@@ -3,9 +3,9 @@ using MaterialPurchase.OrderCarts.Domain;
 
 namespace MaterialPurchase.OrderCarts.Application.Commands.CreateOrderCart;
 
-public class CreateOrderCartCommandHandler
+public static class CreateOrderCartCommandHandler
 {
-    public Guid Handle(CreateOrderCartCommand command, IAggregateRepository<OrderCart> repository)
+    public static Guid Handle(CreateOrderCartCommand command, IAggregateRepository<OrderCart> repository)
     {
         var orderCart = OrderCart.Create(command.Name);
 
