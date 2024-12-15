@@ -23,6 +23,7 @@ public class OrderCartTests
         orderCart.Should().NotBeNull();
         orderCart.Name.Should().Be(orderCartName);
         orderCart.Status.Should().Be(OrderCartStatus.Created);
+        orderCart.Items.Should().BeEmpty();
         orderCart.DomainEvents.Should().HaveCount(1);
         orderCart.DomainEvents[0].Should().BeOfType<OrderCartCreatedDomainEvent>();
     }
@@ -89,7 +90,7 @@ public class OrderCartTests
         orderCart.Items.First().OfferId.Should().Be(offerId);
         orderCart.Items.First().SupplierId.Should().Be(supplierId);
         orderCart.Items.First().Quantity.Should().Be(quantity);
-        orderCart.Items.First().Price.Should().Be(price.Amount);
+        orderCart.Items.First().Price.Should().Be(price);
         orderCart.DomainEvents.Should().HaveCount(1);
         orderCart.DomainEvents[0].Should().BeOfType<OrderCartItemOrderedDomainEvent>();
     }
