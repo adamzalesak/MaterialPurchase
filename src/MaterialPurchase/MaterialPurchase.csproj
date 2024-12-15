@@ -21,8 +21,4 @@
     <ProjectReference Include="..\MaterialPurchase.Orders\MaterialPurchase.Orders.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Internal\Generated\" />
-  </ItemGroup>
-
 </Project>

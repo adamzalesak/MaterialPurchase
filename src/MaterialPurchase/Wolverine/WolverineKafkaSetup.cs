@@ -1,6 +1,5 @@
 ﻿using Confluent.Kafka;
 using MaterialPurchase.Common.Infrastructure.Kafka;
-// using MaterialPurchase.OrderCartsContracts.IntegrationEvents;
 using Wolverine;
 using Wolverine.Kafka;
 

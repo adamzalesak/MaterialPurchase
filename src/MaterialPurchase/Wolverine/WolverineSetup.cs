@@ -12,7 +12,7 @@ namespace MaterialPurchase.Wolverine;
 
 public static class WolverineSetup
 {
-    static readonly TimeSpan[] RetryIntervals = [50.Milliseconds(), 250.Milliseconds(), 2.Seconds()];
+    static readonly TimeSpan[] DefaultRetryIntervals = [50.Milliseconds(), 250.Milliseconds(), 2.Seconds()];
 
     public static WebApplicationBuilder SetupWolverine(this WebApplicationBuilder builder)
     {
@@ -46,14 +46,14 @@ public static class WolverineSetup
             opts.Policies.AddMiddleware<TransactionalMiddleware>(chain => !chain.MessageType.Name.EndsWith("Query"));
 
 
-            opts.OnException<SqlException>().RetryWithCooldown(RetryIntervals)
+            opts.OnException<SqlException>().RetryWithCooldown(DefaultRetryIntervals)
                 .Then.ScheduleRetryIndefinitely(5.Minutes());
-            opts.OnException<DbUpdateException>().RetryWithCooldown(RetryIntervals)
+            opts.OnException<DbUpdateException>().RetryWithCooldown(DefaultRetryIntervals)
                 .Then.ScheduleRetryIndefinitely(5.Minutes());
-            opts.OnException<TimeoutException>().RetryWithCooldown(RetryIntervals)
+            opts.OnException<TimeoutException>().RetryWithCooldown(DefaultRetryIntervals)
                 .Then.ScheduleRetryIndefinitely(5.Minutes());
 
-            opts.OnException<DbUpdateConcurrencyException>().RetryWithCooldown(RetryIntervals)
+            opts.OnException<DbUpdateConcurrencyException>().RetryWithCooldown(DefaultRetryIntervals)
                 .Then.ScheduleRetryIndefinitely(5.Minutes());
 
 

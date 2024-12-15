@@ -2,7 +2,7 @@
 
 namespace MaterialPurchase.OffersContracts.DomainEvents;
 
-public record OfferCreatedDomainEvent : DomainEvent
+public record OfferCreatedDomainEvent : DomainEvent, IOfferDomainEvent
 {
     public override AggregateType AggregateType => AggregateType.Offer;
     public int SupplierId { get; init; }
