@@ -6,8 +6,15 @@ namespace MaterialPurchase.Offers.Application.Commands.AddOfferItem;
 
 public static class AddOfferItemCommandHandler
 {
-    public static async Task<Offer> Load(AddOfferItemCommand command, IAggregateRepository<Offer> repository, CancellationToken cancellationToken)
+    public static async Task<Offer> Load(AddOfferItemCommand command, IAggregateRepository<Offer> repository,
+        IProductReadRepository productReadRepository, CancellationToken cancellationToken)
     {
+        var productExists = await productReadRepository.CheckIfProductExists(command.ProductId, cancellationToken);
+        if (!productExists)
+        {
+            throw new ArgumentException("Product not found");
+        }
+
         var offer = await repository.GetById(command.OfferId, cancellationToken)
                     ?? throw new ArgumentException("Offer not found");
         return offer;

@@ -6,7 +6,7 @@ using Xunit;
 
 namespace ArchitectureTests;
 
-public class ArchitectureTests
+public class OrderCartsLayersTests
 {
     [Fact]
     public void DomainDoesNotReferenceAnyOtherLayer()

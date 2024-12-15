@@ -1,4 +1,5 @@
-﻿using MaterialPurchase.OrderCarts.Domain;
+﻿using MaterialPurchase.Offers.Domain;
+using MaterialPurchase.OrderCarts.Domain;
 using MaterialPurchase.Orders.Domain.Order;
 using NetArchTest.Rules;
 using Xunit;
@@ -8,14 +9,16 @@ namespace ArchitectureTests;
 public class ProjectReferencesTests
 {
     [Fact]
-    public void OrdersProjectDoesNotReferenceAnyOtherProjects()
+    public void OffersProjectDoesNotReferenceAnyOtherProjects()
     {
-        var assembly = typeof(Order).Assembly;
+        var assembly = typeof(Offer).Assembly;
 
         var result = Types
             .InAssembly(assembly)
-            .ShouldNot()
-            .HaveDependencyOn("MaterialPurchase.OrderCarts")
+            .Should()
+            .NotHaveDependencyOn("MaterialPurchase.OrderCarts")
+            .And()
+            .NotHaveDependencyOn("MaterialPurchase.Orders")
             .GetResult();
 
         Assert.True(result.IsSuccessful);
@@ -28,8 +31,26 @@ public class ProjectReferencesTests
 
         var result = Types
             .InAssembly(assembly)
-            .ShouldNot()
-            .HaveDependencyOn("MaterialPurchase.Orders")
+            .Should()
+            .NotHaveDependencyOn("MaterialPurchase.Offers")
+            .And()
+            .NotHaveDependencyOn("MaterialPurchase.Orders")
+            .GetResult();
+
+        Assert.True(result.IsSuccessful);
+    }
+
+    [Fact]
+    public void OrdersProjectDoesNotReferenceAnyOtherProjects()
+    {
+        var assembly = typeof(Order).Assembly;
+
+        var result = Types
+            .InAssembly(assembly)
+            .Should()
+            .NotHaveDependencyOn("MaterialPurchase.Offers")
+            .And()
+            .NotHaveDependencyOn("MaterialPurchase.OrderCarts")
             .GetResult();
 
         Assert.True(result.IsSuccessful);
