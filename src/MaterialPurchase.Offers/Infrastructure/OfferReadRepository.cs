@@ -1,7 +1,8 @@
 ﻿using MaterialPurchase.Offers.Application;
 using MaterialPurchase.Offers.Application.Commands.SelectModels;
-using MaterialPurchase.Offers.Application.Queries.GetOffer;
 using MaterialPurchase.Offers.Application.Queries.GetOffers;
+using MaterialPurchase.Offers.Domain.Enums;
+using MaterialPurchase.OffersContracts.ModuleQueries.GetActiveOfferItemsForProductId;
 using Microsoft.EntityFrameworkCore;
 
 namespace MaterialPurchase.Offers.Infrastructure;
@@ -19,6 +20,7 @@ public class OfferReadRepository(OffersDbContext dbContext) : IOfferReadReposito
                 ValidFrom = x.ValidFrom,
                 Note = x.Note,
             })
+            .AsNoTracking()
             .ToListAsync(cancellationToken);
 
         return offers;
@@ -45,8 +47,30 @@ public class OfferReadRepository(OffersDbContext dbContext) : IOfferReadReposito
                     ProductId = y.ProductId,
                 }).ToList(),
             })
+            .AsNoTracking()
             .FirstAsync(cancellationToken);
 
         return offer;
+    }
+
+    public async Task<ICollection<ActiveOfferItemForProductIdDto>> GetActiveOfferItemsForProductId(int productId, CancellationToken cancellationToken)
+    {
+        return await dbContext.Offers
+            .Where(o => o.Status == OfferStatus.Confirmed)
+            .SelectMany(o => o.OfferItems
+                .Where(oi => oi.ProductId == productId)
+                .Select(oi =>
+                    new ActiveOfferItemForProductIdDto
+                    {
+                        OfferId = oi.OfferId,
+                        Id = oi.Id,
+                        ProductId = oi.ProductId,
+                        Price = oi.Price,
+                        AvailableQuantity = oi.AvailableQuantity,
+                        SupplierId = o.SupplierId,
+                    })
+                .ToList())
+            .AsNoTracking()
+            .ToListAsync(cancellationToken);
     }
 }

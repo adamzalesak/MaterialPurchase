@@ -8,4 +8,5 @@ public record OrderCartItemDto
     public int SupplierId { get; init; }
     public int Quantity { get; init; }
     public decimal Price { get; init; }
+    public required string Currency { get; init; }
 }

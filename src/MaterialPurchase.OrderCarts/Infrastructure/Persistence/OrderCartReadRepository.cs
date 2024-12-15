@@ -13,10 +13,17 @@ public class OrderCartReadRepository(OrderCartsDbContext dbContext) : IOrderCart
             .Where(x => x.Id == id)
             .Select(x => new OrderCartSelectModel
             {
-                Id = x.Id, Name = x.Name, Status = x.Status,
-                Items = x.Items.Select(i => new OrderCartItemSelectModel { Id = i.Id, Name = i.Name, Quantity = i.Quantity })
-                    .ToList()
+                Id = x.Id, Name = x.Name, Status = x.Status, Items = x.Items.Select(i => new OrderCartItemSelectModel
+                {
+                    Id = i.Id,
+                    Name = i.Name,
+                    Quantity = i.Quantity,
+                    SupplierId = i.SupplierId,
+                    Price = i.Price,
+                    OfferId = i.OfferId,
+                }).ToList(),
             })
+            .AsNoTracking()
             .FirstOrDefaultAsync(cancellationToken);
     }
 

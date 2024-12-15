@@ -5,7 +5,7 @@
 
     <ItemGroup>
       <Folder Include="Properties\" />
-      <Folder Include="Queries\" />
+      <Folder Include="ModuleQueries\" />
     </ItemGroup>
 
     <ItemGroup>

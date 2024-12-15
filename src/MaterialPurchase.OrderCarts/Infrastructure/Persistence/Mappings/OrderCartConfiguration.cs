@@ -13,7 +13,14 @@ public class OrderCartConfiguration : IEntityTypeConfiguration<OrderCart>
         builder.OwnsMany(orderCart => orderCart.Items, orderCartItem =>
         {
             orderCartItem.ToTable("OrderCartItems", "orderCarts");
+            orderCartItem.HasKey(x => x.Id);
+            orderCartItem.Property(x => x.Id).ValueGeneratedNever();
             orderCartItem.WithOwner().HasForeignKey(x => x.OrderCartId);
+            orderCartItem.OwnsOne(x => x.Price, price =>
+            {
+                price.Property(money => money.Amount).HasColumnName("PriceAmount").IsRequired();
+                price.Property(money => money.Currency).HasColumnName("PriceCurrency").IsRequired();
+            });
         });
     }
 }

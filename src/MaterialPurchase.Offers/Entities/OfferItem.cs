@@ -26,13 +26,8 @@ public class OfferItem : Entity<Guid>
         };
     }
 
-    internal void ReserveQuantity(int quantity)
+    internal void ChangeAvailableQuantity(int quantity)
     {
-        if (AvailableQuantity < quantity)
-        {
-            throw new InvalidOperationException("Not enough available quantity");
-        }
-
-        AvailableQuantity -= quantity;
+        AvailableQuantity = quantity;
     }
 }

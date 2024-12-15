@@ -1,7 +1,7 @@
 ﻿using MaterialPurchase.Common.Infrastructure.Persistence;
 using MaterialPurchase.OrderCartsContracts.DomainEvents;
-using MaterialPurchase.OrderCartsContracts.Queries;
-using MaterialPurchase.OrderCartsContracts.Queries.Models;
+using MaterialPurchase.OrderCartsContracts.ModuleQueries;
+using MaterialPurchase.OrderCartsContracts.ModuleQueries.Models;
 using MaterialPurchase.Orders.Domain.Order;
 using MaterialPurchase.Orders.Infrastructure.Persistence;
 using Wolverine;

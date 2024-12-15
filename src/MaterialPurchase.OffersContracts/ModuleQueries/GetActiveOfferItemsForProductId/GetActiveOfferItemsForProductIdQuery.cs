@@ -1,0 +1,3 @@
+﻿namespace MaterialPurchase.OffersContracts.ModuleQueries.GetActiveOfferItemsForProductId;
+
+public record GetActiveOfferItemsForProductIdQuery(int ProductId);

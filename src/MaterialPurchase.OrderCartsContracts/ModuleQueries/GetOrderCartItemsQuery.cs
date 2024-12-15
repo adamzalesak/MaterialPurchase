@@ -1,5 +1,5 @@
 ﻿using MaterialPurchase.Common.Application;
 
-namespace MaterialPurchase.OrderCartsContracts.Queries;
+namespace MaterialPurchase.OrderCartsContracts.ModuleQueries;
 
 public record GetOrderCartItemsQuery(Guid OrderCartId) : IQuery;

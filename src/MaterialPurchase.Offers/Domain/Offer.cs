@@ -41,7 +41,7 @@ public class Offer : AggregateRoot
         {
             throw new InvalidOperationException("Offer is not in draft status");
         }
-        
+
         if (_offerItems.Exists(i => i.ProductId == productId))
         {
             throw new InvalidOperationException("Product already added to offer");
@@ -56,7 +56,7 @@ public class Offer : AggregateRoot
             Price = price,
         });
     }
-    
+
     public void Confirm()
     {
         if (Status != OfferStatus.Draft)
@@ -70,20 +70,57 @@ public class Offer : AggregateRoot
         });
     }
 
-    public void ReserveQuantity(int productId, int quantity)
+    public void ReserveItemQuantity(int productId, int quantity)
     {
         if (Status != OfferStatus.Confirmed)
         {
             throw new InvalidOperationException("Offer is not in confirmed status");
         }
-        
+
         var offerItem = _offerItems.Find(i => i.ProductId == productId) ??
                         throw new InvalidOperationException("Product not found in offer");
 
-        RaiseDomainEvent(new OfferItemQuantityReservedDomainEvent
+        if (offerItem.AvailableQuantity is null)
+        {
+            return;
+        }
+
+        if (offerItem.AvailableQuantity < quantity)
+        {
+            throw new InvalidOperationException("Not enough available quantity");
+        }
+
+        RaiseDomainEvent(new OfferItemAvailableQuantityChangedDomainEvent
         {
             OfferItemId = offerItem.Id,
-            Quantity = quantity,
+            Quantity = offerItem.AvailableQuantity.Value - quantity,
+        });
+    }
+    
+    public void ChangeItemReservedQuantity(int productId, int originalReserved, int newReserved)
+    {
+        if (Status != OfferStatus.Confirmed)
+        {
+            throw new InvalidOperationException("Offer is not in confirmed status");
+        }
+
+        var offerItem = _offerItems.Find(i => i.ProductId == productId) ??
+                        throw new InvalidOperationException("Product not found in offer");
+
+        if (offerItem.AvailableQuantity is null)
+        {
+            return;
+        }
+
+        if (offerItem.AvailableQuantity + originalReserved < newReserved)
+        {
+            throw new InvalidOperationException("Not enough available quantity");
+        }
+
+        RaiseDomainEvent(new OfferItemAvailableQuantityChangedDomainEvent
+        {
+            OfferItemId = offerItem.Id,
+            Quantity = offerItem.AvailableQuantity.Value +originalReserved - newReserved,
         });
     }
 
@@ -107,16 +144,16 @@ public class Offer : AggregateRoot
             price: domainEvent.Price
         ));
     }
-    
+
     public void Apply(OfferConfirmedDomainEvent domainEvent)
     {
         Status = OfferStatus.Confirmed;
     }
 
-    public void Apply(OfferItemQuantityReservedDomainEvent domainEvent)
+    public void Apply(OfferItemAvailableQuantityChangedDomainEvent domainEvent)
     {
         var offerItem = _offerItems.Find(i => i.Id == domainEvent.OfferItemId) ??
                         throw new InvalidOperationException("Offer item not found");
-        offerItem.ReserveQuantity(domainEvent.Quantity);
+        offerItem.ChangeAvailableQuantity(domainEvent.Quantity);
     }
 }

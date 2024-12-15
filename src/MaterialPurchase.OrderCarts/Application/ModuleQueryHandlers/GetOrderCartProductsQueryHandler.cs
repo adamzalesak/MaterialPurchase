@@ -1,5 +1,5 @@
-﻿using MaterialPurchase.OrderCartsContracts.Queries;
-using MaterialPurchase.OrderCartsContracts.Queries.Models;
+﻿using MaterialPurchase.OrderCartsContracts.ModuleQueries;
+using MaterialPurchase.OrderCartsContracts.ModuleQueries.Models;
 
 namespace MaterialPurchase.OrderCarts.Application.ModuleQueryHandlers;
 

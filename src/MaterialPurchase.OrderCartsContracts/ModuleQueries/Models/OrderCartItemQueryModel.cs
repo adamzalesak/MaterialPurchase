@@ -1,4 +1,4 @@
-﻿namespace MaterialPurchase.OrderCartsContracts.Queries.Models;
+﻿namespace MaterialPurchase.OrderCartsContracts.ModuleQueries.Models;
 
 public class OrderCartItemQueryModel
 {
