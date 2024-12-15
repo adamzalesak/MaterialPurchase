@@ -32,6 +32,9 @@ declare @orderCartId uniqueidentifier = newid();
 insert into orderCarts.OrderCartHeaders (Id, Version, Name, Status)
 values (@orderCartId, newid(), 'Cart 1', 0);
 
+insert into orderCarts.OrderCartStatsReadModels (Id, CreatedCount, FinishedCount)
+values (newid(), 1, 0);
+
 -- crate order cart item
 insert into orderCarts.OrderCartItems (Id, Name, OrderCartId, ProductId, OfferId, SupplierId, Quantity, PriceAmount, PriceCurrency)
 values (newid(), 'bubble wrap 1x15m', @orderCartId, 1, @offerId, 1, 10, 10.00, 'EUR');

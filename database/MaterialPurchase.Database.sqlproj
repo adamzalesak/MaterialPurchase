@@ -20,47 +20,17 @@
     <Build Include="Security\Schemas\orders.sql" />
     <Build Include="Security\Schemas\orderCarts.sql" />
     <Build Include="Security\Schemas\wolverine.sql" />
-    <Build Include="wolverine\Procedures\uspMarkIncomingOwnership.sql" />
-    <Build Include="wolverine\Tables\wolverine_nodes.sql" />
-    <Build Include="wolverine\Tables\wolverine_node_records.sql" />
-    <Build Include="wolverine\Tables\wolverine_node_assignments.sql" />
-    <Build Include="wolverine\Tables\wolverine_outgoing_envelopes.sql" />
-    <Build Include="wolverine\Tables\wolverine_incoming_envelopes.sql" />
-    <Build Include="wolverine\Tables\wolverine_dead_letters.sql" />
-    <Build Include="wolverine\Tables\wolverine_control_queue.sql" />
-    <Build Include="wolverine\Types\EnvelopeIdList.sql" />
-    <Build Include="wolverine\Procedures\uspDeleteIncomingEnvelopes.sql" />
-    <Build Include="wolverine\Procedures\uspDeleteOutgoingEnvelopes.sql" />
-    <Build Include="wolverine\Procedures\uspDiscardAndReassignOutgoing.sql" />
-    <Build Include="wolverine\Procedures\uspMarkOutgoingOwnership.sql" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Security\" />
     <Folder Include="orderCarts" />
     <Folder Include="orders\" />
-    <Folder Include="wolverine\Procedures\" />
-    <Folder Include="wolverine\Tables\" />
-    <Folder Include="wolverine\Types\" />
-    <Folder Include="wolverine\" />
     <Folder Include="dbo" />
     <Folder Include="orderCarts\Tables\OrderCartHeaders.sql" />
     <Folder Include="orders\Tables\OrderHeaders.sql" />
     <Folder Include="Security\Schemas\orders.sql" />
     <Folder Include="Security\Schemas\orderCarts.sql" />
     <Folder Include="Security\Schemas\wolverine.sql" />
-    <Folder Include="wolverine\Procedures\uspMarkIncomingOwnership.sql" />
-    <Folder Include="wolverine\Tables\wolverine_nodes.sql" />
-    <Folder Include="wolverine\Tables\wolverine_node_records.sql" />
-    <Folder Include="wolverine\Tables\wolverine_node_assignments.sql" />
-    <Folder Include="wolverine\Tables\wolverine_outgoing_envelopes.sql" />
-    <Folder Include="wolverine\Tables\wolverine_incoming_envelopes.sql" />
-    <Folder Include="wolverine\Tables\wolverine_dead_letters.sql" />
-    <Folder Include="wolverine\Tables\wolverine_control_queue.sql" />
-    <Folder Include="wolverine\Types\EnvelopeIdList.sql" />
-    <Folder Include="wolverine\Procedures\uspDeleteIncomingEnvelopes.sql" />
-    <Folder Include="wolverine\Procedures\uspDeleteOutgoingEnvelopes.sql" />
-    <Folder Include="wolverine\Procedures\uspDiscardAndReassignOutgoing.sql" />
-    <Folder Include="wolverine\Procedures\uspMarkOutgoingOwnership.sql" />
   </ItemGroup>
   <ItemGroup>
     <SqlCmdVariable Include="environment">

@@ -1,1 +1,0 @@
-﻿CREATE TYPE [wolverine].[EnvelopeIdList] AS TABLE ([id] UNIQUEIDENTIFIER NOT NULL)

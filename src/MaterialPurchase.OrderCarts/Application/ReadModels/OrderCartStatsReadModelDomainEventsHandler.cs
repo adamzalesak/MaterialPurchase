@@ -6,11 +6,10 @@ public class OrderCartStatsReadModelDomainEventsHandler
 {
     public static async Task<OrderCartStatsReadModel?> Load(IOrderCartReadModelRepository readModelRepository, CancellationToken cancellationToken)
     {
-        return await readModelRepository.GetOrderCartStats(cancellationToken) ?? new OrderCartStatsReadModel();
+        return await readModelRepository.GetOrderCartStats(cancellationToken);
     }
 
-    public static void Handle(OrderCartCreatedDomainEvent @event, OrderCartStatsReadModel? readModel, IOrderCartReadModelRepository readModelRepository,
-        CancellationToken cancellationToken)
+    public static void Handle(OrderCartCreatedDomainEvent @event, OrderCartStatsReadModel? readModel, IOrderCartReadModelRepository readModelRepository)
     {
         if (readModel is not null)
         {
@@ -24,8 +23,7 @@ public class OrderCartStatsReadModelDomainEventsHandler
         readModelRepository.Add(readModel);
     }
 
-    public static void Handle(OrderCartFinishedDomainEvent @event, OrderCartStatsReadModel? readModel, IOrderCartReadModelRepository readModelRepository,
-        CancellationToken cancellationToken)
+    public static void Handle(OrderCartFinishedDomainEvent @event, OrderCartStatsReadModel? readModel, IOrderCartReadModelRepository readModelRepository)
     {
         if (readModel is not null)
         {

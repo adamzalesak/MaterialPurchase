@@ -19,8 +19,8 @@ public class OfferConfiguration : IEntityTypeConfiguration<Offer>
             offerItem.WithOwner().HasForeignKey(x => x.OfferId);
             offerItem.OwnsOne(x => x.Price, price =>
             {
-                price.Property(x => x.Amount).HasColumnName("PriceAmount").IsRequired();
-                price.Property(x => x.Currency).HasColumnName("PriceCurrency").IsRequired();
+                price.Property(x => x.Amount).HasColumnName("PriceAmount").IsRequired().HasColumnType("money");
+                price.Property(x => x.Currency).HasColumnName("PriceCurrency").IsRequired().HasMaxLength(3);
             });
         });
     }
