@@ -1,5 +1,3 @@
-﻿using MaterialPurchase.Common.Application;
+﻿namespace MaterialPurchase.Offers.Application.Queries.GetOffers;
 
-namespace MaterialPurchase.Offers.Application.Queries.GetOffers;
-
-public record GetOffersQuery : IQuery;
+public record GetOffersQuery;

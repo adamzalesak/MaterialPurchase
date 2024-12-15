@@ -1,5 +1,3 @@
-﻿using MaterialPurchase.Common.Application;
+﻿namespace MaterialPurchase.OrderCarts.Application.Queries.GetOrderCart;
 
-namespace MaterialPurchase.OrderCarts.Application.Queries.GetOrderCart;
-
-public record GetOrderCartQuery(Guid Id) : IQuery;
+public record GetOrderCartQuery(Guid Id);
