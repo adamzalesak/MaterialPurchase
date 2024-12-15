@@ -1,4 +1,4 @@
-﻿namespace MaterialPurchase.OrderCarts.Domain.Enums;
+﻿namespace MaterialPurchase.OrderCarts.Domain.OrderCart;
 
 public enum OrderCartStatus
 {

@@ -1,8 +1,8 @@
 ﻿using FluentAssertions;
 using MaterialPurchase.Common.Domain.ValueObjects;
-using MaterialPurchase.OrderCarts.Domain;
 using MaterialPurchase.OrderCarts.Domain.Dtos;
-using MaterialPurchase.OrderCarts.Domain.Enums;
+using MaterialPurchase.OrderCarts.Domain.OrderCart;
+using MaterialPurchase.OrderCarts.Domain.OrderCart.Dtos;
 using MaterialPurchase.OrderCartsContracts.DomainEvents;
 using Xunit;
 

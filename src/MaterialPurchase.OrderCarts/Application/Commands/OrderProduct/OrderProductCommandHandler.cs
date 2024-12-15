@@ -1,7 +1,8 @@
 ﻿using MaterialPurchase.Common.Infrastructure.Persistence;
 using MaterialPurchase.OffersContracts.ModuleQueries.GetActiveOfferItemsForProductId;
-using MaterialPurchase.OrderCarts.Domain;
 using MaterialPurchase.OrderCarts.Domain.Dtos;
+using MaterialPurchase.OrderCarts.Domain.OrderCart;
+using MaterialPurchase.OrderCarts.Domain.OrderCart.Dtos;
 using Wolverine;
 
 namespace MaterialPurchase.OrderCarts.Application.Commands.OrderProduct;

@@ -1,6 +1,7 @@
 ﻿using MaterialPurchase.Common.Infrastructure.Persistence;
 using MaterialPurchase.OrderCarts.Application;
 using MaterialPurchase.OrderCarts.Domain;
+using MaterialPurchase.OrderCarts.Domain.OrderCart;
 using MaterialPurchase.OrderCarts.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;

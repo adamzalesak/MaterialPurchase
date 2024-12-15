@@ -1,5 +1,5 @@
 ﻿using MaterialPurchase.OrderCarts.Application.Queries.GetOrderCart;
-using MaterialPurchase.OrderCarts.Domain;
+using MaterialPurchase.OrderCarts.Domain.OrderCart;
 using MaterialPurchase.OrderCarts.Infrastructure.Persistence;
 using NetArchTest.Rules;
 using Xunit;

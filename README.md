@@ -9,10 +9,10 @@ system.
 
 To successfully run the project, you need to have the following tools installed on your machine:
 
-- .NET 8.0 SDK
-- Docker
-- sqlpackage
-- sqlcmd
+- .NET 8.0 SDK (https://dotnet.microsoft.com/en-us/download/dotnet/8.0)
+- Docker (https://www.docker.com/)
+- sqlpackage (https://learn.microsoft.com/en-us/sql/tools/sqlpackage/sqlpackage-download)
+- sqlcmd (https://learn.microsoft.com/en-us/sql/tools/sqlcmd/sqlcmd-utility)
 
 ### Set up the database
 

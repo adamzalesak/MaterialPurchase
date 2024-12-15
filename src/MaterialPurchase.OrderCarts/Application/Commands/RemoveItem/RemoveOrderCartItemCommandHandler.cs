@@ -1,5 +1,6 @@
 ﻿using MaterialPurchase.Common.Infrastructure.Persistence;
 using MaterialPurchase.OrderCarts.Domain;
+using MaterialPurchase.OrderCarts.Domain.OrderCart;
 
 namespace MaterialPurchase.OrderCarts.Application.Commands.RemoveItem;
 

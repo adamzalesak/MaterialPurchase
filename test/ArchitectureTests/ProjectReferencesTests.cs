@@ -1,5 +1,5 @@
-﻿using MaterialPurchase.Offers.Domain;
-using MaterialPurchase.OrderCarts.Domain;
+﻿using MaterialPurchase.Offers.Domain.Offer;
+using MaterialPurchase.OrderCarts.Domain.OrderCart;
 using MaterialPurchase.Orders.Domain.Order;
 using NetArchTest.Rules;
 using Xunit;

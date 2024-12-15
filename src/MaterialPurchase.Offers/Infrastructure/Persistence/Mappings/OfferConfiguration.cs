@@ -1,4 +1,5 @@
 ﻿using MaterialPurchase.Offers.Domain;
+using MaterialPurchase.Offers.Domain.Offer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

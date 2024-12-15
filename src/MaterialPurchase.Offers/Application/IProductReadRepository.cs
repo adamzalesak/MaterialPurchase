@@ -1,4 +1,4 @@
-﻿using MaterialPurchase.Offers.Domain.Dtos;
+﻿using MaterialPurchase.Offers.Domain.Offer.Dtos;
 
 namespace MaterialPurchase.Offers.Application;
 

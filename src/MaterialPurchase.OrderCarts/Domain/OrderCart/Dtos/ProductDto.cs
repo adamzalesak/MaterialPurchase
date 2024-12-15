@@ -1,4 +1,4 @@
-﻿namespace MaterialPurchase.OrderCarts.Domain.Dtos;
+﻿namespace MaterialPurchase.OrderCarts.Domain.OrderCart.Dtos;
 
 public record ProductDto
 {

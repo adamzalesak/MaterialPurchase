@@ -1,10 +1,9 @@
 ﻿using MaterialPurchase.Common.Domain;
 using MaterialPurchase.OrderCarts.Domain.Dtos;
-using MaterialPurchase.OrderCarts.Domain.Entities;
+using MaterialPurchase.OrderCarts.Domain.OrderCart.Dtos;
 using MaterialPurchase.OrderCartsContracts.DomainEvents;
-using MaterialPurchase.OrderCarts.Domain.Enums;
 
-namespace MaterialPurchase.OrderCarts.Domain;
+namespace MaterialPurchase.OrderCarts.Domain.OrderCart;
 
 public class OrderCart(Guid id, string name, OrderCartStatus status) : AggregateRoot(id)
 {

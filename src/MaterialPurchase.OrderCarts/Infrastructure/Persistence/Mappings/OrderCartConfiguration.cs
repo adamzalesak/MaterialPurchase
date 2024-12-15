@@ -1,4 +1,4 @@
-﻿using MaterialPurchase.OrderCarts.Domain;
+﻿using MaterialPurchase.OrderCarts.Domain.OrderCart;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

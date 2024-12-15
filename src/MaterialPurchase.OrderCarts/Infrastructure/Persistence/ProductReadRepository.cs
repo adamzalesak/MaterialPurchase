@@ -1,5 +1,5 @@
 ﻿using MaterialPurchase.OrderCarts.Application;
-using MaterialPurchase.OrderCarts.Domain.Dtos;
+using MaterialPurchase.OrderCarts.Domain.OrderCart.Dtos;
 using Microsoft.EntityFrameworkCore;
 
 namespace MaterialPurchase.OrderCarts.Infrastructure.Persistence;

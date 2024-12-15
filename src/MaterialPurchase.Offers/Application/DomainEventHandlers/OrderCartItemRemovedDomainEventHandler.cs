@@ -1,5 +1,5 @@
 ﻿using MaterialPurchase.Common.Infrastructure.Persistence;
-using MaterialPurchase.Offers.Domain;
+using MaterialPurchase.Offers.Domain.Offer;
 using MaterialPurchase.OrderCartsContracts.DomainEvents;
 
 namespace MaterialPurchase.Offers.Application.DomainEventHandlers;

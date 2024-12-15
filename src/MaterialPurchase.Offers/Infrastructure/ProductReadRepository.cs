@@ -1,5 +1,5 @@
 ﻿using MaterialPurchase.Offers.Application;
-using MaterialPurchase.Offers.Domain.Dtos;
+using MaterialPurchase.Offers.Domain.Offer.Dtos;
 using Microsoft.EntityFrameworkCore;
 
 namespace MaterialPurchase.Offers.Infrastructure;

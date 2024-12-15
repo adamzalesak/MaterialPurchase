@@ -1,7 +1,7 @@
 ﻿using MaterialPurchase.Common.Domain;
 using MaterialPurchase.Common.Domain.ValueObjects;
 
-namespace MaterialPurchase.OrderCarts.Domain.Entities;
+namespace MaterialPurchase.OrderCarts.Domain.OrderCart;
 
 public class OrderCartItem : Entity<Guid>
 {

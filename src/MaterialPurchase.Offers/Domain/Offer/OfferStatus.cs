@@ -1,4 +1,4 @@
-﻿namespace MaterialPurchase.Offers.Domain.Enums;
+﻿namespace MaterialPurchase.Offers.Domain.Offer;
 
 public enum OfferStatus
 {

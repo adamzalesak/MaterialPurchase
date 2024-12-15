@@ -1,6 +1,6 @@
 ﻿using MaterialPurchase.Common.Infrastructure.Persistence;
-using MaterialPurchase.Offers.Domain;
-using MaterialPurchase.Offers.Domain.Dtos;
+using MaterialPurchase.Offers.Domain.Offer;
+using MaterialPurchase.Offers.Domain.Offer.Dtos;
 using Microsoft.EntityFrameworkCore;
 using Wolverine;
 

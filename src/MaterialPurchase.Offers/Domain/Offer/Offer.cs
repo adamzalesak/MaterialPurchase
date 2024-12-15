@@ -1,10 +1,8 @@
 ﻿using MaterialPurchase.Common.Domain;
 using MaterialPurchase.Common.Domain.ValueObjects;
-using MaterialPurchase.Offers.Domain.Enums;
-using MaterialPurchase.Offers.Entities;
 using MaterialPurchase.OffersContracts.DomainEvents;
 
-namespace MaterialPurchase.Offers.Domain;
+namespace MaterialPurchase.Offers.Domain.Offer;
 
 public class Offer : AggregateRoot
 {

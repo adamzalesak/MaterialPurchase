@@ -1,7 +1,7 @@
 ﻿using MaterialPurchase.Common.Infrastructure.Persistence;
 using MaterialPurchase.OrderCarts.Application.ReadModels;
-using MaterialPurchase.OrderCarts.Domain;
-using MaterialPurchase.OrderCarts.Domain.Dtos;
+using MaterialPurchase.OrderCarts.Domain.OrderCart;
+using MaterialPurchase.OrderCarts.Domain.OrderCart.Dtos;
 using Microsoft.EntityFrameworkCore;
 using Wolverine;
 

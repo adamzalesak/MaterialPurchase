@@ -1,6 +1,7 @@
 ﻿using MaterialPurchase.Common.Domain.ValueObjects;
 using MaterialPurchase.Common.Infrastructure.Persistence;
 using MaterialPurchase.Offers.Domain;
+using MaterialPurchase.Offers.Domain.Offer;
 
 namespace MaterialPurchase.Offers.Application.Commands.AddOfferItem;
 

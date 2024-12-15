@@ -1,7 +1,7 @@
 ﻿using MaterialPurchase.Common.Domain;
 using MaterialPurchase.Common.Domain.ValueObjects;
 
-namespace MaterialPurchase.Offers.Entities;
+namespace MaterialPurchase.Offers.Domain.Offer;
 
 public class OfferItem : Entity<Guid>
 {

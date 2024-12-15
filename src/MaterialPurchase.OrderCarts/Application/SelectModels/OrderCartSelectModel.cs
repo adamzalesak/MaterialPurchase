@@ -1,4 +1,4 @@
-﻿using MaterialPurchase.OrderCarts.Domain.Enums;
+﻿using MaterialPurchase.OrderCarts.Domain.OrderCart;
 
 namespace MaterialPurchase.OrderCarts.Application.SelectModels;
 

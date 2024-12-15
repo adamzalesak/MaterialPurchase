@@ -1,6 +1,7 @@
 ﻿using MaterialPurchase.Common.Infrastructure.Persistence;
 using MaterialPurchase.Offers.Application;
 using MaterialPurchase.Offers.Domain;
+using MaterialPurchase.Offers.Domain.Offer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
