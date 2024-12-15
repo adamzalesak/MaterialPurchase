@@ -11,14 +11,12 @@
     <TargetFrameworkProfile />
   </PropertyGroup>
   <ItemGroup>
-    <Build Remove="ContinuousDeployment/**" />
     <Build Include="dbo\Tables\Products.sql" />
     <Build Include="orderCarts\Tables\DomainEvents.sql" />
     <Build Include="orderCarts\Tables\OrderCartHeaders.sql" />
     <Build Include="orderCarts\Tables\OrderCartItems.sql" />
     <Build Include="orders\Tables\DomainEvents.sql" />
     <Build Include="orders\Tables\OrderHeaders.sql" />
-    <Build Include="Security\Schemas\ContinuousDeployment.sql" />
     <Build Include="Security\Schemas\orders.sql" />
     <Build Include="Security\Schemas\orderCarts.sql" />
     <Build Include="Security\Schemas\wolverine.sql" />
@@ -35,9 +33,6 @@
     <Build Include="wolverine\Procedures\uspDeleteOutgoingEnvelopes.sql" />
     <Build Include="wolverine\Procedures\uspDiscardAndReassignOutgoing.sql" />
     <Build Include="wolverine\Procedures\uspMarkOutgoingOwnership.sql" />
-    <Build Include="dbo\Tables\Users.sql" />
-    <Build Include="dbo\Tables\AccountingWarehouses.sql" />
-    <Build Include="dbo\Tables\PhysicalWarehouses.sql" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Security\" />
@@ -66,8 +61,6 @@
     <Folder Include="wolverine\Procedures\uspDeleteOutgoingEnvelopes.sql" />
     <Folder Include="wolverine\Procedures\uspDiscardAndReassignOutgoing.sql" />
     <Folder Include="wolverine\Procedures\uspMarkOutgoingOwnership.sql" />
-    <Folder Include="dbo\Tables\Users.sql" />
-    <Folder Include="dbo\Tables\PhysicalWarehouses.sql" />
   </ItemGroup>
   <ItemGroup>
     <SqlCmdVariable Include="environment">

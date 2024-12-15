@@ -44,18 +44,18 @@ public class OrderCart(Guid id, string name, OrderCartStatus status) : Aggregate
         {
             throw new InvalidOperationException("Cannot order product in finished order cart");
         }
-
-        if (offerItem.AvailableQuantity < quantity)
-        {
-            throw new InvalidOperationException("Not enough quantity available");
-        }
-
+        
         var orderCartItem = _items.Find(i =>
             i.ProductId == product.Id &&
             i.OfferId == offerItem.OfferId &&
             i.SupplierId == offerItem.SupplierId &&
             i.Price == offerItem.Price
         );
+        
+        if (offerItem.AvailableQuantity + (orderCartItem?.Quantity ?? 0) < quantity)
+        {
+            throw new InvalidOperationException("Not enough quantity available");
+        }
 
         if (orderCartItem is not null && orderCartItem.Quantity != quantity)
         {
