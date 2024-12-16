@@ -17,9 +17,9 @@
     <Build Include="orderCarts\Tables\OrderCartItems.sql" />
     <Build Include="orders\Tables\DomainEvents.sql" />
     <Build Include="orders\Tables\OrderHeaders.sql" />
+    <Build Include="orders\Tables\OrderItems.sql" />
     <Build Include="Security\Schemas\orders.sql" />
     <Build Include="Security\Schemas\orderCarts.sql" />
-    <Build Include="Security\Schemas\wolverine.sql" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Security\" />
@@ -30,7 +30,6 @@
     <Folder Include="orders\Tables\OrderHeaders.sql" />
     <Folder Include="Security\Schemas\orders.sql" />
     <Folder Include="Security\Schemas\orderCarts.sql" />
-    <Folder Include="Security\Schemas\wolverine.sql" />
   </ItemGroup>
   <ItemGroup>
     <SqlCmdVariable Include="environment">

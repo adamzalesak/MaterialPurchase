@@ -16,6 +16,7 @@ public class OrderCartReadRepository(OrderCartsDbContext dbContext) : IOrderCart
                 Id = x.Id, Name = x.Name, Status = x.Status, Items = x.Items.Select(i => new OrderCartItemSelectModel
                 {
                     Id = i.Id,
+                    ProductId = i.ProductId,
                     Name = i.Name,
                     Quantity = i.Quantity,
                     SupplierId = i.SupplierId,

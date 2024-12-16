@@ -1,14 +1,12 @@
 ﻿using MaterialPurchase.Common.Domain.ValueObjects;
 
-namespace MaterialPurchase.OrderCarts.Application.SelectModels;
+namespace MaterialPurchase.Orders.Domain.Order.Dtos;
 
-public record OrderCartItemSelectModel
+public record OrderItemDto
 {
-    public Guid Id { get; init; }
+    public Guid OrderId { get; init; }
     public int ProductId { get; init; }
     public required string Name { get; init; }
-    public Guid OfferId { get; init; }
-    public int SupplierId { get; init; }
     public int Quantity { get; init; }
     public required Money Price { get; init; }
 }
