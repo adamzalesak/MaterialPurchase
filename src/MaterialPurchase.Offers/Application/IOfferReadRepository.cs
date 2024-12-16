@@ -1,5 +1,5 @@
-﻿using MaterialPurchase.Offers.Application.Commands.SelectModels;
-using MaterialPurchase.Offers.Application.Queries.GetOffers;
+﻿using MaterialPurchase.Offers.Application.Queries.GetOffers;
+using MaterialPurchase.Offers.Application.SelectModels;
 using MaterialPurchase.OffersContracts.ModuleQueries.GetActiveOfferItemsForProductId;
 
 namespace MaterialPurchase.Offers.Application;

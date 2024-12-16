@@ -17,6 +17,7 @@ public class GetOfferEndpoint : OffersEndpoint
 
                 return Results.Ok(response);
             })
-            .Produces<GetOfferResponse>();
+            .Produces<GetOfferResponse>()
+            .WithSummary("Get an offer by id");
     }
 }

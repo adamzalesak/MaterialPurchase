@@ -11,9 +11,10 @@ public class FinishOrderCartEndpoint : OrderCartsEndpoint
     public override void AddRoutes(IEndpointRouteBuilder app)
     {
         app.MapPut("/{id:guid}/finish", async ([FromRoute] Guid id, IMessageBus bus, CancellationToken cancellationToken) =>
-        {
-            await bus.InvokeAsync(new FinishOrderCartCommand(id), cancellationToken);
-            return Results.Ok();
-        });
+            {
+                await bus.InvokeAsync(new FinishOrderCartCommand(id), cancellationToken);
+                return Results.Ok();
+            })
+            .WithSummary("Finish an order cart");
     }
 }

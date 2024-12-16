@@ -16,6 +16,7 @@ public class GetOffersEndpoint : OffersEndpoint
 
                 return Results.Ok(response);
             })
-            .Produces<ICollection<GetOffersResponse>>();
+            .Produces<ICollection<GetOffersResponse>>()
+            .WithSummary("Get all offers");
     }
 }

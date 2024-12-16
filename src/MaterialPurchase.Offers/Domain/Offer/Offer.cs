@@ -62,10 +62,7 @@ public class Offer : AggregateRoot
             throw new InvalidOperationException("Offer is not in draft status");
         }
 
-        RaiseDomainEvent(new OfferConfirmedDomainEvent
-        {
-            OfferId = Id,
-        });
+        RaiseDomainEvent(new OfferConfirmedDomainEvent { OfferId = Id });
     }
 
     public void ReserveItemQuantity(int productId, int quantity)
@@ -94,7 +91,7 @@ public class Offer : AggregateRoot
             Quantity = offerItem.AvailableQuantity.Value - quantity,
         });
     }
-    
+
     public void ChangeItemReservedQuantity(int productId, int originalReserved, int newReserved)
     {
         if (Status != OfferStatus.Confirmed)
@@ -118,7 +115,7 @@ public class Offer : AggregateRoot
         RaiseDomainEvent(new OfferItemAvailableQuantityChangedDomainEvent
         {
             OfferItemId = offerItem.Id,
-            Quantity = offerItem.AvailableQuantity.Value +originalReserved - newReserved,
+            Quantity = offerItem.AvailableQuantity.Value + originalReserved - newReserved,
         });
     }
 

@@ -16,6 +16,7 @@ public class GetOrderEndpoint : OrdersEndpoint
 
                 return result is null ? Results.NotFound() : Results.Ok(result);
             })
-            .Produces<GetOrderResponse?>();
+            .Produces<GetOrderResponse?>()
+            .WithSummary("Get an order by id");
     }
 }

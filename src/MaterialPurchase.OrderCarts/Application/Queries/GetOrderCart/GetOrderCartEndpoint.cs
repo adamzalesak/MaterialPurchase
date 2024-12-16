@@ -16,6 +16,7 @@ public class GetOrderCartEndpoint : OrderCartsEndpoint
 
                 return result is null ? Results.NotFound() : Results.Ok(result);
             })
-            .Produces<GetOrderCartResponse?>();
+            .Produces<GetOrderCartResponse?>()
+            .WithSummary("Get an order cart by id");
     }
 }

@@ -1,6 +1,6 @@
 ﻿using MaterialPurchase.Offers.Application;
-using MaterialPurchase.Offers.Application.Commands.SelectModels;
 using MaterialPurchase.Offers.Application.Queries.GetOffers;
+using MaterialPurchase.Offers.Application.SelectModels;
 using MaterialPurchase.Offers.Domain.Offer;
 using MaterialPurchase.OffersContracts.ModuleQueries.GetActiveOfferItemsForProductId;
 using Microsoft.EntityFrameworkCore;

@@ -1,4 +1,4 @@
-﻿namespace MaterialPurchase.Offers.Application.Commands.SelectModels;
+﻿namespace MaterialPurchase.Offers.Application.SelectModels;
 
 public record OfferItemSelectModel
 {

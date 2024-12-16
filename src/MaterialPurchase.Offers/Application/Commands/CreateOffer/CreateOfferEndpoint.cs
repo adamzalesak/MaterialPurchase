@@ -16,6 +16,7 @@ public class CreateOfferEndpoint : OffersEndpoint
                     new CreateOfferCommand(request.SupplierId, request.ValidFrom, request.ValidTo, request.Note), cancellationToken);
                 return Results.Ok(id);
             })
-            .Produces<Guid>();
+            .Produces<Guid>()
+            .WithSummary("Create an offer");
     }
 }

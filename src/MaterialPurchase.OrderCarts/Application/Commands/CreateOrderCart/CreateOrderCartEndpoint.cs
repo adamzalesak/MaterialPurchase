@@ -15,6 +15,7 @@ public class CreateOrderCartEndpoint : OrderCartsEndpoint
                 var id = await bus.InvokeAsync<Guid>(new CreateOrderCartCommand(request.Name), cancellationToken);
                 return Results.Ok(id);
             })
-            .Produces<Guid>();
+            .Produces<Guid>()
+            .WithSummary("Create an order cart");
     }
 }

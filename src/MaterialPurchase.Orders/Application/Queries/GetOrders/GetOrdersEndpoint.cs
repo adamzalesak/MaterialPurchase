@@ -16,6 +16,7 @@ public class GetOrdersEndpoint : OrdersEndpoint
 
                 return Results.Ok(result);
             })
-            .Produces<GetOrderResponse?>();
+            .Produces<GetOrderResponse?>()
+            .WithSummary("Get all orders");
     }
 }
