@@ -1,6 +1,5 @@
 ﻿using FluentAssertions;
 using MaterialPurchase.Common.Domain.ValueObjects;
-using MaterialPurchase.Offers.Domain;
 using MaterialPurchase.Offers.Domain.Offer;
 using MaterialPurchase.OffersContracts.DomainEvents;
 using Xunit;
