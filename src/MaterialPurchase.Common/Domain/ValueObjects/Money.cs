@@ -39,4 +39,14 @@ public record Money
 
         return money1 with { Amount = money1.Amount - money2.Amount };
     }
+    
+    public static Money operator *(Money money, decimal multiplier)
+    {
+        return money with { Amount = money.Amount * multiplier };
+    }
+    
+    public static Money operator /(Money money, decimal divisor)
+    {
+        return money with { Amount = money.Amount / divisor };
+    }
 }
