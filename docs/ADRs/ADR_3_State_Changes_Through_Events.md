@@ -1,4 +1,4 @@
-﻿# ADR 2: State Changes Through Events
+﻿# ADR 3: State Changes Through Events
 
 ## Date
 
