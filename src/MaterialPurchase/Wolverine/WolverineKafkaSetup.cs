@@ -1,5 +1,4 @@
 ﻿using Confluent.Kafka;
-using MaterialPurchase.Common.Infrastructure.Kafka;
 using Wolverine;
 using Wolverine.Kafka;
 

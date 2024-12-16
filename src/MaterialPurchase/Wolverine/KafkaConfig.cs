@@ -1,4 +1,4 @@
-﻿namespace MaterialPurchase.Common.Infrastructure.Kafka;
+﻿namespace MaterialPurchase.Wolverine;
 
 public record KafkaConfig
 {

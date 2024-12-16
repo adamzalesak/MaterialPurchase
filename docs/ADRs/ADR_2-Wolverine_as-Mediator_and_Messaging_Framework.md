@@ -6,45 +6,50 @@
 
 ## Status
 
-Proposed
+Accepted
 
 ## Context
 
-The API endpoints generate commands and queries that need to be delegated to the application layer for processing. The
-application layer is responsible for handling these commands and queries and returning the results to the API.
+The API endpoints generate commands and queries that need to be delegated to the handlers for processing. The
+application layer is responsible for handling these commands and queries and returning the results to the API endpoint.
 
-Additionally, the application publishes domain events, which are handled by its modules, as well as integration events
-sent to Kafka for consumption by other services. It also subscribes to events from other services.
+The application modules publish domain events, which are handled within the same module or different modules. Some
+events may also be sent to Kafka for consumption by other systems. The application also subscribes to events from other
+services.
 
-We need a tool that can handle these messaging patterns.
+Additionally, the system's modules sometimes need to communicate with each other synchronously. To achieve this, we need
+a mediator that can route queries between modules.
+
+Therefore, we need a tool that can handle the above requirements.
 
 ## Decision
 
-We will use **Wolverine** for all mediation and messaging needs. Wolverine will be responsible for:
+We have chosen **Wolverine** as the framework for mediation and messaging.
 
-- Processing commands and queries from the API.
-- Publishing and handling domain events.
+- Processing commands and queries from the API endpoints.
+- Publishing and handling domain events asynchronously.
 - Sending/receiving integration events to/from Kafka.
+- Mediating synchronous communication between application modules.
 
 ## Consequences
 
 ### Flexibility in Messaging
 
 Wolverine provides extensive configuration options and supports multiple transports, including RabbitMQ, Kafka, and
-Azure Service Bus. It includes features for message resiliency, retries, and custom middleware, allowing for a highly
-adaptable messaging solution.
+Azure Service Bus. Its features for message resiliency, retries, and custom middleware make it a highly adaptable
+messaging solution.
 
 ### Built-in Outbox and Inbox Pattern
 
-Wolverine includes built-in support for the outbox and inbox patterns. This ensures message durability and consistency,
-preventing message loss during publication or consumption, which is critical for application reliability.
+Wolverine includes built-in support for the outbox and inbox patterns, ensuring message durability and preventing loss
+during publication or consumption.
 
 ### Lower Ceremony Code
 
-The authors of Wolverine prefer low-ceremony code that emphasizes simplicity and clarity. The framework is designed to
-support this by reducing complexity and boilerplate code.
+The authors of Wolverine emphasize low-ceremony code, which promotes simplicity and clarity. The framework supports this
+philosophy by reducing complexity and boilerplate code.
 
 ### Streamlined Toolset
 
-By adopting Wolverine for both mediation and messaging, we consolidate our toolset, reducing the number of external
-dependencies. This simplification helps ease the learning curve for developers and minimizes integration complexities.
+By adopting Wolverine for both mediation and messaging, we consolidate our toolset, reducing external dependencies. This
+simplification minimizes integration complexities and lowers the learning curve for developers.

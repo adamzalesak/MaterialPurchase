@@ -6,28 +6,26 @@
 
 ## Status
 
-Proposed
+Accepted
 
 ## Context
 
 During the initial phases of application design, an Event Storming session identified several bounded contexts within
 the system using pivotal events. To maximize modularity and maintain low coupling between these contexts, it's essential
-to ensure these parts remain as isolated as possible. This isolation facilitates separate development, scaling, and
+to ensure these parts remain as isolated as possible. This isolation facilitates minimization of coupling and
 potential partitioning of the application in the future.
 
 Two architectural approaches are available for this division: **microservices** and a **modular monolith**. While
 microservices offer flexibility and scalability, they also introduce significant complexity in managing distributed
 systems, such as network latency and the overhead of maintaining multiple services. On the other hand, a modular
-monolith can maintain simplicity and coherence but requires careful management to avoid tight coupling between modules
-over time.
+monolith can maintain simplicity but requires careful management to avoid tight coupling between modules over time.
 
 ## Decision
 
 We will adopt a **modular monolith** architecture, where each module is represented by a separate project within a
-single solution. Each module, corresponding to a bounded context, will have an associated Contracts project that defines
-domain events, queries for inter-module communication, and data models. These Contracts projects can be referenced by
-other modules as needed. In terms of Domain-Driven Design (DDD) Context Mapping, this approach will follow a
-*Customer-Supplier* model, where the *Contracts* project is upstream, and other modules are downstream.
+single solution. Each module, corresponding to a potential bounded context, will have an associated Contracts project
+that defines domain events, queries for inter-module communication, and data models. These Contracts projects can be
+referenced by other modules as needed.
 
 ## Consequences
 

@@ -8,11 +8,11 @@ public class OrderCartConfiguration : IEntityTypeConfiguration<OrderCart>
 {
     public void Configure(EntityTypeBuilder<OrderCart> builder)
     {
-        builder.ToTable("OrderCartHeaders", "orderCarts");
+        builder.ToTable("OrderCartHeaders");
         builder.HasKey(orderCart => orderCart.Id);
         builder.OwnsMany(orderCart => orderCart.Items, orderCartItem =>
         {
-            orderCartItem.ToTable("OrderCartItems", "orderCarts");
+            orderCartItem.ToTable("OrderCartItems");
             orderCartItem.HasKey(x => x.Id);
             orderCartItem.Property(x => x.Id).ValueGeneratedNever();
             orderCartItem.WithOwner().HasForeignKey(x => x.OrderCartId);
