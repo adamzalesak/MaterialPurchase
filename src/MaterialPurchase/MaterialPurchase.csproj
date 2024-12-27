@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <RootNamespace>MaterialPurchase</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.9.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="8.0.2" />
+    <PackageReference Include="WolverineFx" Version="3.1.0" />
+    <PackageReference Include="WolverineFx.EntityFrameworkCore" Version="3.1.0" />
+    <PackageReference Include="WolverineFx.FluentValidation" Version="3.1.0" />
+    <PackageReference Include="WolverineFx.Kafka" Version="3.1.0" />
+    <PackageReference Include="WolverineFx.SqlServer" Version="3.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MaterialPurchase.Common\MaterialPurchase.Common.csproj" />
+    <ProjectReference Include="..\MaterialPurchase.Offers\MaterialPurchase.Offers.csproj" />
+    <ProjectReference Include="..\MaterialPurchase.OrderCarts\MaterialPurchase.OrderCarts.csproj" />
+    <ProjectReference Include="..\MaterialPurchase.Orders\MaterialPurchase.Orders.csproj" />
+  </ItemGroup>
+
+</Project>

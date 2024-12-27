@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build">
+  <Sdk Name="Microsoft.Build.Sql" Version="0.1.14-preview" />
+  <PropertyGroup>
+    <Name>MaterialPurchase.Database</Name>
+    <ProjectGuid>{9a01b967-42c2-455e-92a4-64edc0f79d15}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql150DatabaseSchemaProvider</DSP>
+    <ModelCollation>1029, CI</ModelCollation>
+    <TargetDatabaseSet>True</TargetDatabaseSet>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <ItemGroup>
+    <Build Include="dbo\Tables\Products.sql" />
+    <Build Include="orderCarts\Tables\DomainEvents.sql" />
+    <Build Include="orderCarts\Tables\OrderCartHeaders.sql" />
+    <Build Include="orderCarts\Tables\OrderCartItems.sql" />
+    <Build Include="orders\Tables\DomainEvents.sql" />
+    <Build Include="orders\Tables\OrderHeaders.sql" />
+    <Build Include="orders\Tables\OrderItems.sql" />
+    <Build Include="Security\Schemas\orders.sql" />
+    <Build Include="Security\Schemas\orderCarts.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Security\" />
+    <Folder Include="orderCarts" />
+    <Folder Include="orders\" />
+    <Folder Include="dbo" />
+    <Folder Include="orderCarts\Tables\OrderCartHeaders.sql" />
+    <Folder Include="orders\Tables\OrderHeaders.sql" />
+    <Folder Include="Security\Schemas\orders.sql" />
+    <Folder Include="Security\Schemas\orderCarts.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <SqlCmdVariable Include="environment">
+      <DefaultValue>Local</DefaultValue>
+      <Value>$(SqlCmdVar__1)</Value>
+    </SqlCmdVariable>
+  </ItemGroup>
+</Project>
+<!--this has to be compiled with an extra argument -->
+<!--dotnet build /p:NetCoreBuild=true-->
+<!---->

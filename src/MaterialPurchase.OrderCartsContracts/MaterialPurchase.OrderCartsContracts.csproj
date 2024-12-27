@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+      <RootNamespace>MaterialPurchase.OrderCartsContracts</RootNamespace>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="WolverineFx" Version="3.1.0" />
+    </ItemGroup>
+    
+    <ItemGroup>
+        <ProjectReference Include="..\MaterialPurchase.Common\MaterialPurchase.Common.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Folder Include="Commands\"/>
+        <Folder Include="ModuleQueries\" />
+    </ItemGroup>
+</Project>

@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.6" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Properties\" />
+      <Folder Include="ModuleQueries\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\MaterialPurchase.Common\MaterialPurchase.Common.csproj" />
+    </ItemGroup>
+</Project>
